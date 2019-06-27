@@ -37,6 +37,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.potyvideo.library.globalEnums.EnumResizeMode;
 import com.potyvideo.library.utils.PublicValues;
 
 public class AndExoPlayerView extends LinearLayout {
@@ -232,6 +233,26 @@ public class AndExoPlayerView extends LinearLayout {
         simpleExoPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
     }
 
+    public void setResizeMode(EnumResizeMode resizeMode) {
+        switch (resizeMode) {
+
+            case FIT:
+                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+                break;
+
+            case FILL:
+                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+                break;
+
+            case ZOOM:
+                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);
+                break;
+
+            default:
+                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);
+        }
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -281,5 +302,6 @@ public class AndExoPlayerView extends LinearLayout {
         playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
+
 
 }

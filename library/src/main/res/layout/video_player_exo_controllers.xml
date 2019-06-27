@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:background="#CC000000"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:background="@color/blackTransparent">
+
+        <RelativeLayout
+            android:id="@+id/container_play"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/exo_play"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blackTransparent"
+                app:srcCompat="@drawable/exo_controls_play" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/exo_pause"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blackTransparent"
+                app:srcCompat="@drawable/exo_controls_pause" />
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exo_position"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/container_play"
+            android:layout_toRightOf="@id/container_play"
+            android:fontFamily="@font/app_font_number"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="00:00:00"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/exo_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/app_font_number"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="00:00:00"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <com.google.android.exoplayer2.ui.DefaultTimeBar
+            android:id="@id/exo_progress"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/exo_duration"
+            android:layout_toLeftOf="@id/exo_duration"
+            android:layout_toEndOf="@id/exo_position"
+            android:layout_toRightOf="@id/exo_position" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_fullscreen"
+        android:layout_width="40dp"
+        android:layout_height="40dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/exo_enter_fullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blackTransparent"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_fullscreen_black_24dp" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/exo_exit_fullscreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blackTransparent"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_fullscreen_exit_black_24dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
