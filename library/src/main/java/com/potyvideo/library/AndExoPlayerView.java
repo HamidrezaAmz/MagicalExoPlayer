@@ -37,6 +37,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.potyvideo.library.globalEnums.EnumPlayerSize;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
 import com.potyvideo.library.utils.PublicValues;
 
@@ -58,6 +59,8 @@ public class AndExoPlayerView extends LinearLayout {
     private ExtractorsFactory extractorsFactory;
     private TrackSelection.Factory trackSelectionFactory;
     private TrackSelector trackSelector;
+
+    private EnumPlayerSize currPlayerSize = EnumPlayerSize.AT_MOST;
 
     public class ComponentListener implements Player.EventListener {
 
@@ -253,6 +256,10 @@ public class AndExoPlayerView extends LinearLayout {
         }
     }
 
+    public void setPlayerSize(EnumPlayerSize playerSize) {
+        this.currPlayerSize = playerSize;
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -303,5 +310,25 @@ public class AndExoPlayerView extends LinearLayout {
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        switch (currPlayerSize) {
+
+            case EXACTLY:
+                setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+                break;
+
+            case AT_MOST:
+                heightMeasureSpec = (widthMeasureSpec / 3) * 2;
+                setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+                break;
+
+            case UNSPECIFIED:
+            default:
+                setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+                break;
+        }
+    }
 
 }
