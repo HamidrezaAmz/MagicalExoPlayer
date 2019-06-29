@@ -55,6 +55,11 @@ Or
  AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
 ```
 
+## Implementation Example
+```java
+ andExoPlayerView.setSource(Uri.parse(TEST_URL_MP4));
+```
+
 ## Custom Attributes
 | Command | Description |
 | --- | --- |
