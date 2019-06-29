@@ -20,5 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
         andExoPlayerView = findViewById(R.id.andExoPlayerView);
         andExoPlayerView.setSource(Uri.parse(TEST_URL_MP4));
+
+        // andExoPlayerView.setShowFullScreen(true);
+        // andExoPlayerView.setResizeMode(EnumResizeMode.FILL);
     }
 }

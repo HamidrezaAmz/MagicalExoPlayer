@@ -74,10 +74,11 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/container_fullscreen"
         android:layout_width="40dp"
-        android:layout_height="40dp">
+        android:layout_height="40dp"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/exo_enter_fullscreen"
@@ -93,8 +94,9 @@
             android:layout_height="match_parent"
             android:background="@color/blackTransparent"
             android:tint="@color/white"
+            android:visibility="gone"
             app:srcCompat="@drawable/ic_fullscreen_exit_black_24dp" />
 
-    </RelativeLayout>
+    </FrameLayout>
 
 </LinearLayout>

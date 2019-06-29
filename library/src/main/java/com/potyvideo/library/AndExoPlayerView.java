@@ -1,19 +1,24 @@
 package com.potyvideo.library;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -37,11 +42,10 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.potyvideo.library.globalEnums.EnumPlayerSize;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
 import com.potyvideo.library.utils.PublicValues;
 
-public class AndExoPlayerView extends LinearLayout {
+public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
 
     private Context context;
     private Uri currUri = null;
@@ -49,18 +53,19 @@ public class AndExoPlayerView extends LinearLayout {
     private int currentWindow = 0;
     private long playbackPosition = 0;
     private boolean isPreparing = false;
+    private TypedArray typedArray = null;
 
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
     private ComponentListener componentListener;
     private LinearLayout linearLayoutRetry;
+    private FrameLayout frameLayoutFullScreenContainer;
+    private AppCompatImageButton imageViewEnterFullScreen, imageViewExitFullScreen;
 
     private BandwidthMeter bandwidthMeter;
     private ExtractorsFactory extractorsFactory;
     private TrackSelection.Factory trackSelectionFactory;
     private TrackSelector trackSelector;
-
-    private EnumPlayerSize currPlayerSize = EnumPlayerSize.AT_MOST;
 
     public class ComponentListener implements Player.EventListener {
 
@@ -142,11 +147,19 @@ public class AndExoPlayerView extends LinearLayout {
 
     public AndExoPlayerView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        typedArray = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.AndExoPlayerView,
+                0, 0);
         initializeView(context);
     }
 
     public AndExoPlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        typedArray = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.AndExoPlayerView,
+                0, 0);
         initializeView(context);
     }
 
@@ -158,8 +171,31 @@ public class AndExoPlayerView extends LinearLayout {
 
         playerView = view.findViewById(R.id.simpleExoPlayerView);
         linearLayoutRetry = findViewById(R.id.linearLayoutRetry);
+        frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);
+        imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
+        imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
 
         componentListener = new ComponentListener();
+
+        linearLayoutRetry.setOnClickListener(this);
+        imageViewEnterFullScreen.setOnClickListener(this);
+        imageViewExitFullScreen.setOnClickListener(this);
+
+        if (typedArray != null) {
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_full_screen))
+                setShowFullScreen(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_full_screen, false));
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_resize_mode)) {
+                int resizeMode = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_resize_mode, EnumResizeMode.FILL.getValue());
+                setResizeMode(EnumResizeMode.get(resizeMode));
+            }
+
+            typedArray.recycle();
+        }
+
+        int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);
+        playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
 
         initializePlayer();
     }
@@ -231,11 +267,6 @@ public class AndExoPlayerView extends LinearLayout {
             playerView.hideController();
     }
 
-    public void fullScreen() {
-        playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
-        simpleExoPlayer.setVideoScalingMode(C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING);
-    }
-
     public void setResizeMode(EnumResizeMode resizeMode) {
         switch (resizeMode) {
 
@@ -256,8 +287,22 @@ public class AndExoPlayerView extends LinearLayout {
         }
     }
 
-    public void setPlayerSize(EnumPlayerSize playerSize) {
-        this.currPlayerSize = playerSize;
+    public void setShowFullScreen(boolean showFullScreen) {
+        if (showFullScreen)
+            frameLayoutFullScreenContainer.setVisibility(VISIBLE);
+        else
+            frameLayoutFullScreenContainer.setVisibility(GONE);
+    }
+
+    private Activity getActivity() {
+        Context context = getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 
     @Override
@@ -281,10 +326,8 @@ public class AndExoPlayerView extends LinearLayout {
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             //unhide your objects here.
             showSystemUi();
-            /*FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
-            params.width = params.MATCH_PARENT;
-            params.height = PublicFunctions.convertPixelsToDp(context, PublicValues.PLAYER_HEIGHT);
-            playerView.setLayoutParams(params);*/
+            int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);
+            playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
         }
     }
 
@@ -311,24 +354,32 @@ public class AndExoPlayerView extends LinearLayout {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        switch (currPlayerSize) {
+    public void onClick(View v) {
 
-            case EXACTLY:
-                setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-                break;
-
-            case AT_MOST:
-                heightMeasureSpec = (widthMeasureSpec / 3) * 2;
-                setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-                break;
-
-            case UNSPECIFIED:
-            default:
-                setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
-                break;
+        int targetViewId = v.getId();
+        if (targetViewId == R.id.linearLayoutRetry) {
+            initializeView(context);
+        } else if (targetViewId == R.id.exo_enter_fullscreen) {
+            enterFullScreen();
+        } else if (targetViewId == R.id.exo_exit_fullscreen) {
+            exitFullScreen();
         }
+    }
+
+    private void enterFullScreen() {
+        imageViewExitFullScreen.setVisibility(VISIBLE);
+        imageViewEnterFullScreen.setVisibility(GONE);
+
+        if (getActivity() != null)
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    }
+
+    private void exitFullScreen() {
+        imageViewExitFullScreen.setVisibility(GONE);
+        imageViewEnterFullScreen.setVisibility(VISIBLE);
+
+        if (getActivity() != null)
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
 }
