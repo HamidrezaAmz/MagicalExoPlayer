@@ -45,7 +45,7 @@ Add xml of custom view into your parent view
         android:layout_height="wrap_content" />
 ```
 
-Refrence to custom-view inside your activity or fragment (I use [butterknife](https://github.com/JakeWharton/butterknife/))
+Refrence to custom-view inside your activity or fragment (I use [butterknife](https://github.com/JakeWharton/butterknife/)), Or you can use **findViewById()**
 ```java
  @BindView(R.id.andExoPlayerView)
  AndExoPlayerView andExoPlayerView;
