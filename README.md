@@ -27,6 +27,6 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:Rele:1.2.1'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.1'
 }
 ```
