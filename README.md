@@ -50,3 +50,8 @@ Refrence to custom-view inside your activity or fragment (I use [butterknife](ht
  @BindView(R.id.andExoPlayerView)
  AndExoPlayerView andExoPlayerView;
 ```
+Or
+```java
+ AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
+```
+
