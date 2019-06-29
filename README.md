@@ -57,7 +57,7 @@ Or
 
 ## Other Libraries
 
-* [Mkloader](https://github.com/nntuyen/mkloader) - The loading view library
+* [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player
 
 
 ## Author
