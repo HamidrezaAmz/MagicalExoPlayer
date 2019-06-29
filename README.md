@@ -57,7 +57,7 @@ Or
 
 ## Implementation Example
 ```java
- andExoPlayerView.setSource(Uri.parse(TEST_URL_MP4));
+ andExoPlayerView.setSource(Uri.parse(TEST_URL));
 ```
 
 ## Custom Attributes
