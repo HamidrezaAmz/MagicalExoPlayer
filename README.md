@@ -55,6 +55,12 @@ Or
  AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
 ```
 
+## Custom Attributes
+| Command | Description |
+| --- | --- |
+| `andexo_resize_mode` | Type Of Video Player Size, you can pass **Fill**,**Fit**,**Zoom** |
+| `andexo_full_screen` | Show FullScreen Toggle Button, you can Pass **True**,**False** |
+
 ## Other Libraries
 
 * [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player
