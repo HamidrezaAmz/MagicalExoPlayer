@@ -55,3 +55,11 @@ Or
  AndExoPlayerView andExoPlayerView = findViewById(R.id.andExoPlayerView);
 ```
 
+## Other Libraries
+
+* [Mkloader](https://github.com/nntuyen/mkloader) - The loading view library
+
+
+## Author
+
+* **Hamidreza amoozadeh** - *Android DEV* - [github](https://github.com/HamidrezaAmz)
