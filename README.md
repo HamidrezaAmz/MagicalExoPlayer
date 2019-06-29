@@ -37,7 +37,7 @@ dependencies {
 
 ### Here we go for implementation
 
-Add xml of custom view into your parent view
+Add player view into your XML
 ```xml
 <com.potyvideo.library.AndExoPlayerView
         android:id="@+id/andExoPlayerView"
@@ -65,6 +65,16 @@ Or
 | --- | --- |
 | `andexo_resize_mode` | Type Of Video Player Size, you can pass **Fill**,**Fit**,**Zoom** |
 | `andexo_full_screen` | Show FullScreen Toggle Button, you can Pass **True**,**False** |
+
+## XML With Custom Attrs.
+```xml
+<com.potyvideo.library.AndExoPlayerView
+        android:id="@+id/andExoPlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:andexo_full_screen="true"
+        app:andexo_resize_mode="Fill" />
+```
 
 ## Other Libraries
 
