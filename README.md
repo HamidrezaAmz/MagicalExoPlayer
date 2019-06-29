@@ -33,3 +33,20 @@ dependencies {
     implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.1'
 }
 ```
+
+
+### Here we go for implementation
+
+Add xml of custom view into your parent view
+```xml
+<com.vasl.recyclerlibrary.MyCustomView
+        android:id="@+id/myCustomView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+```
+
+Refrence to custom-view inside your activity or fragment (I use [butterknife](https://github.com/JakeWharton/butterknife/))
+```java
+ @BindView(R.id.myCustomView)
+ MyCustomView myCustomView;
+```
