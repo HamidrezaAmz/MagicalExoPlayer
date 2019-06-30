@@ -79,6 +79,11 @@ Or
         app:andexo_resize_mode="Fill" />
 ```
 
+## TIP
+If you wan to support full screen, please add this config into your activity in manifest.xml
+```xml
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
+```
 ## Other Libraries
 
 * [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player
