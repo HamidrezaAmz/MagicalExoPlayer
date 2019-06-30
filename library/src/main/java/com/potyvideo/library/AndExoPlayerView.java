@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageButton;
@@ -41,6 +43,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
 import com.potyvideo.library.utils.PublicValues;
@@ -48,7 +51,7 @@ import com.potyvideo.library.utils.PublicValues;
 public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
 
     private Context context;
-    private Uri currUri = null;
+    private String currSource = "";
     private boolean playWhenReady = false;
     private int currentWindow = 0;
     private long playbackPosition = 0;
@@ -217,20 +220,34 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         }
     }
 
-    public void setSource(Uri uri) {
-        MediaSource mediaSource = buildMediaSource(uri);
-        simpleExoPlayer.prepare(mediaSource, true, false);
+    public void setSource(String source) {
+        MediaSource mediaSource = buildMediaSource(source);
+        if (mediaSource != null)
+            simpleExoPlayer.prepare(mediaSource, true, false);
     }
 
-    private MediaSource buildMediaSource(Uri uri) {
+    private MediaSource buildMediaSource(String source) {
 
-        if (uri == null || uri.getLastPathSegment() == null)
+        if (source == null) {
+            Toast.makeText(context, "Input Is Invalid.", Toast.LENGTH_SHORT).show();
             return null;
+        }
 
-        this.currUri = uri;
+        this.currSource = source;
 
-        if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3) || uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+        boolean validUrl = URLUtil.isValidUrl(source);
+
+        Uri uri = Uri.parse(source);
+        if (uri == null || uri.getLastPathSegment() == null) {
+            Toast.makeText(context, "Uri Converter Failed, Input Is Invalid.", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        if (validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
             return new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))
+                    .createMediaSource(uri);
+        } else if (!validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+            return new ExtractorMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
                     .createMediaSource(uri);
         } else if (uri.getLastPathSegment().contains(PublicValues.KEY_HLS)) {
             return new HlsMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))

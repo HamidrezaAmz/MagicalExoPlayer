@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:andexo_full_screen="true"
-        app:andexo_resize_mode="Fill" />
+        app:andexo_resize_mode="Fit" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
@@ -45,16 +45,18 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appCompatButtonServerSide"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="click 5" />
+            android:text="Server Side MP4" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appCompatButtonLocale"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="click 6" />
+            android:text="Play Locale" />
 
     </LinearLayout>
 
