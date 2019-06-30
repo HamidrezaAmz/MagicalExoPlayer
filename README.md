@@ -33,7 +33,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.2'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.3'
 }
 ```
 
@@ -60,7 +60,7 @@ Or
 
 ## Implementation Example
 ```java
- andExoPlayerView.setSource(Uri.parse(TEST_URL));
+ andExoPlayerView.setSource("URL OR FILE ADDRESS");
 ```
 
 ## Custom Attributes
