@@ -78,8 +78,10 @@ Or
         android:id="@+id/andExoPlayerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:andexo_aspect_ratio="aspect_16_9"
         app:andexo_full_screen="true"
-        app:andexo_resize_mode="Fill" />
+        app:andexo_play_when_ready="true"
+        app:andexo_resize_mode="Fit" />
 ```
 
 
