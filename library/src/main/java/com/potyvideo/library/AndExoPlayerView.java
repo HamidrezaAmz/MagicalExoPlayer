@@ -45,18 +45,22 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.potyvideo.library.globalEnums.EnumAspectRatio;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
+import com.potyvideo.library.utils.PublicFunctions;
 import com.potyvideo.library.utils.PublicValues;
 
 public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
 
     private Context context;
     private String currSource = "";
-    private boolean playWhenReady = false;
     private int currentWindow = 0;
     private long playbackPosition = 0;
     private boolean isPreparing = false;
     private TypedArray typedArray = null;
+    private boolean currPlayWhenReady = false;
+    private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
+    private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
 
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
@@ -186,19 +190,26 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         if (typedArray != null) {
 
-            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_full_screen))
-                setShowFullScreen(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_full_screen, false));
-
             if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_resize_mode)) {
                 int resizeMode = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_resize_mode, EnumResizeMode.FILL.getValue());
                 setResizeMode(EnumResizeMode.get(resizeMode));
             }
 
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
+                int aspectRatio = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.getValue());
+                setAspectRatio(EnumAspectRatio.get(aspectRatio));
+            }
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_full_screen)) {
+                setShowFullScreen(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_full_screen, false));
+            }
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_play_when_ready)) {
+                setPlayWhenReady(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_play_when_ready, false));
+            }
+
             typedArray.recycle();
         }
-
-        int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);
-        playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
 
         initializePlayer();
     }
@@ -215,7 +226,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
 
             playerView.setPlayer(simpleExoPlayer);
-            simpleExoPlayer.setPlayWhenReady(playWhenReady);
+            simpleExoPlayer.setPlayWhenReady(currPlayWhenReady);
             simpleExoPlayer.seekTo(currentWindow, playbackPosition);
         }
     }
@@ -263,7 +274,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         if (simpleExoPlayer != null) {
             playbackPosition = simpleExoPlayer.getCurrentPosition();
             currentWindow = simpleExoPlayer.getCurrentWindowIndex();
-            playWhenReady = simpleExoPlayer.getPlayWhenReady();
+            currPlayWhenReady = simpleExoPlayer.getPlayWhenReady();
             simpleExoPlayer.removeListener(componentListener);
             simpleExoPlayer.release();
             simpleExoPlayer = null;
@@ -271,7 +282,9 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     }
 
     public void setPlayWhenReady(boolean playWhenReady) {
-        this.playWhenReady = playWhenReady;
+        this.currPlayWhenReady = playWhenReady;
+        if (simpleExoPlayer != null)
+            simpleExoPlayer.setPlayWhenReady(playWhenReady);
     }
 
     public void stopPlayer() {
@@ -311,6 +324,36 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             frameLayoutFullScreenContainer.setVisibility(GONE);
     }
 
+    public void setAspectRatio(EnumAspectRatio aspectRatio) {
+        this.currAspectRatio = aspectRatio;
+        int value = PublicFunctions.getScreenWidth();
+
+        switch (aspectRatio) {
+
+            case ASPECT_1_1:
+                playerView.setLayoutParams(new FrameLayout.LayoutParams(value, value));
+                break;
+
+            case ASPECT_4_3:
+                playerView.setLayoutParams(new FrameLayout.LayoutParams(value, (3 * value) / 4));
+                break;
+
+            case ASPECT_16_9:
+                playerView.setLayoutParams(new FrameLayout.LayoutParams(value, (9 * value) / 16));
+                break;
+
+            case ASPECT_MATCH:
+                playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                break;
+
+            case UNDEFINE:
+            default:
+                int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);
+                playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
+                break;
+        }
+    }
+
     private Activity getActivity() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
@@ -334,17 +377,16 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         // Checking the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //First Hide other objects (listview or recyclerview), better hide them using Gone.
+            // First Hide other objects (listview or recyclerview), better hide them using Gone.
             hideSystemUi();
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();
             params.width = params.MATCH_PARENT;
             params.height = params.MATCH_PARENT;
             playerView.setLayoutParams(params);
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //unhide your objects here.
+            // unhide your objects here.
             showSystemUi();
-            int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);
-            playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
+            setAspectRatio(currAspectRatio);
         }
     }
 

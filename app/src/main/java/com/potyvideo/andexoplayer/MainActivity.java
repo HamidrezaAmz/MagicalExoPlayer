@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String TEST_URL_MP4 = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
 
+    private String TEST_URL_HLS = "http://185.23.131.61/hls/jomhori_2.m3u8";
+
     private int req_code = 129;
 
     @Override
@@ -32,20 +34,31 @@ public class MainActivity extends AppCompatActivity {
         // andExoPlayerView.setShowFullScreen(true);
         // andExoPlayerView.setResizeMode(EnumResizeMode.FILL);
 
-        findViewById(R.id.appCompatButtonLocale).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.local).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectLocaleVideo();
             }
         });
 
-        findViewById(R.id.appCompatButtonServerSide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.mp4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadMP4ServerSide();
             }
         });
 
+        findViewById(R.id.hls).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadHls();
+            }
+        });
+
+    }
+
+    private void loadHls() {
+        andExoPlayerView.setSource(TEST_URL_HLS);
     }
 
     private void loadMP4ServerSide() {

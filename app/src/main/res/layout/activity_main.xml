@@ -9,28 +9,28 @@
         android:id="@+id/andExoPlayerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:andexo_aspect_ratio="aspect_16_9"
         app:andexo_full_screen="true"
+        app:andexo_play_when_ready="true"
         app:andexo_resize_mode="Fit" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/local"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="click 1" />
+        android:text="PLAY LOCAL" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/mp4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="click 2" />
+        android:text="PLAY MP4" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/hls"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="click 3" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="click 4" />
+        android:text="PLAY HLS" />
 
     <TextView
         android:layout_width="match_parent"
@@ -38,26 +38,5 @@
         android:gravity="center"
         android:padding="@dimen/global_padding_extra"
         android:text="SOME OTHER VIEWS" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButtonServerSide"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Server Side MP4" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButtonLocale"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Play Locale" />
-
-    </LinearLayout>
 
 </LinearLayout>

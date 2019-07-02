@@ -15,6 +15,6 @@
     <dimen name="global_margin_extra">18dp</dimen>
     <dimen name="global_margin_x_extra">24dp</dimen>
 
-    <dimen name="player_base_height">250dp</dimen>
+    <dimen name="player_base_height">220dp</dimen>
 
 </resources>
