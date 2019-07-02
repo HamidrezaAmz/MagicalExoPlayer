@@ -33,7 +33,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.2'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.3'
 }
 ```
 
@@ -60,7 +60,7 @@ Or
 
 ## Implementation Example
 ```java
- andExoPlayerView.setSource(Uri.parse(TEST_URL));
+ andExoPlayerView.setSource("URL OR FILE ADDRESS");
 ```
 
 ## Custom Attributes
@@ -68,6 +68,7 @@ Or
 | --- | --- |
 | `andexo_resize_mode` | Type Of Video Player Size, you can pass **Fill**,**Fit**,**Zoom** |
 | `andexo_full_screen` | Show FullScreen Toggle Button, you can Pass **True**,**False** |
+
 
 ## XML With Custom Attrs.
 ```xml
@@ -79,9 +80,31 @@ Or
         app:andexo_resize_mode="Fill" />
 ```
 
+
+## TIP
+If you wan to support full screen, please add this config into your activity in manifest.xml
+```xml
+android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+```
+
+For example your activity with be something like this
+```xml
+<activity
+      android:name=".MainActivity"
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
+      <intent-filter>
+          <action android:name="android.intent.action.MAIN" />
+
+          <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+</activity>
+```
+
+
 ## Other Libraries
 
 * [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player
+
 
 
 ## Author
