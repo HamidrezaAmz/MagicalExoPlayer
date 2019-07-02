@@ -68,6 +68,8 @@ Or
 | --- | --- |
 | `andexo_resize_mode` | Type Of Video Player Size, you can pass **Fill**,**Fit**,**Zoom** |
 | `andexo_full_screen` | Show FullScreen Toggle Button, you can Pass **True**,**False** |
+| `andexo_play_when_ready` | Player Start Playing On Stream Is Ready **True**,**False** |
+| `andexo_aspect_ratio` | In Order To Get The Desired Playerr Size, You Can Pass The Aspect Ratios You Need **ASPECT_1_1**, **ASPECT_16_9**, **ASPECT_4_3**, **ASPECT_MATCH** |
 
 
 ## XML With Custom Attrs.
