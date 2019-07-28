@@ -17,4 +17,6 @@
 
     <dimen name="player_base_height">220dp</dimen>
 
+    <dimen name="player_controller_base_height">40dp</dimen>
+
 </resources>

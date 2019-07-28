@@ -7,6 +7,7 @@ public enum EnumAspectRatio {
     ASPECT_16_9("ASPECT_16_9", 2),
     ASPECT_4_3("ASPECT_4_3", 3),
     ASPECT_MATCH("ASPECT_MATCH", 4),
+    ASPECT_MP3("ASPECT_MP3", 5),
     ;
 
     private String valueStr;

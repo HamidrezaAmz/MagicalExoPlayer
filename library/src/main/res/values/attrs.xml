@@ -19,6 +19,7 @@
         <enum name="aspect_16_9" value="2" />
         <enum name="aspect_4_3" value="3" />
         <enum name="aspect_match" value="4" />
+        <enum name="aspect_mp3" value="5" />
     </attr>
 
 </resources>

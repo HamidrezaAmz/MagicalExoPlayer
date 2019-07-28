@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String TEST_URL_HLS = "http://185.23.131.61/hls/jomhori_2.m3u8";
 
+    private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
+
     private int req_code = 129;
 
     @Override
@@ -55,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.mp3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadMp3();
+            }
+        });
+
+    }
+
+    private void loadMp3() {
+        andExoPlayerView.setSource(TEST_URL_MP3);
     }
 
     private void loadHls() {

@@ -263,6 +263,9 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         } else if (uri.getLastPathSegment().contains(PublicValues.KEY_HLS)) {
             return new HlsMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))
                     .createMediaSource(uri);
+        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)) {
+            return new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))
+                    .createMediaSource(uri);
         } else {
             DefaultDashChunkSource.Factory dashChunkSourceFactory = new DefaultDashChunkSource.Factory(new DefaultHttpDataSourceFactory("ua", new DefaultBandwidthMeter()));
             DefaultHttpDataSourceFactory manifestDataSourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
@@ -344,6 +347,13 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
             case ASPECT_MATCH:
                 playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                break;
+
+            case ASPECT_MP3:
+                playerView.setControllerShowTimeoutMs(0);
+                playerView.setControllerHideOnTouch(false);
+                int mp3Height = getContext().getResources().getDimensionPixelSize(R.dimen.player_controller_base_height);
+                playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mp3Height));
                 break;
 
             case UNDEFINE:

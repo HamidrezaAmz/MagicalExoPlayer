@@ -32,6 +32,12 @@
         android:layout_height="wrap_content"
         android:text="PLAY HLS" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/mp3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PLAY MP3" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
