@@ -14,35 +14,51 @@
         app:andexo_play_when_ready="true"
         app:andexo_resize_mode="Fit" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/local"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PLAY LOCAL" />
+        android:orientation="vertical"
+        android:padding="@dimen/global_padding">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/mp4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PLAY MP4" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/local"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/pink"
+            android:text="PLAY LOCAL VIDEO" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/hls"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PLAY HLS" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/mp4"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="PLAY MP4" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/mp3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PLAY MP3" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/hls"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/green"
+            android:text="PLAY HLS" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="@dimen/global_padding_extra"
-        android:text="SOME OTHER VIEWS" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/mp3"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange"
+            android:text="PLAY MP3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/global_padding_extra"
+            android:text="SOME OTHER VIEWS ;)" />
+
+    </LinearLayout>
 
 </LinearLayout>

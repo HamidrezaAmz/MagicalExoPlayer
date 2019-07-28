@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_margin">@dimen/global_margin_x_small</item>
+        <item name="android:padding">@dimen/global_padding_extra</item>
+        <item name="android:background">@drawable/shape_rounded</item>
+    </style>
+
 </resources>

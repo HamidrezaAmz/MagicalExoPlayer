@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         andExoPlayerView = findViewById(R.id.andExoPlayerView);
 
-        // andExoPlayerView.setShowFullScreen(true);
-        // andExoPlayerView.setResizeMode(EnumResizeMode.FILL);
-
         findViewById(R.id.local).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
