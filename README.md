@@ -4,8 +4,7 @@
 # MagicalExoPlayer
 The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS** And **DASH**. 
 
-![mock_up_and_exo_player](https://user-images.githubusercontent.com/13493645/60384008-2cd99000-9a8e-11e9-8b14-9d00de4b4f7a.jpg)
-
+![mock_up_and_exo_player_2](https://user-images.githubusercontent.com/13493645/62006476-1e969680-b156-11e9-80f0-2ccc1df1e7be.jpg)
 
 ## Getting Started
 
@@ -32,7 +31,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.4'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.5'
 }
 ```
 
@@ -68,7 +67,7 @@ Or
 | `andexo_resize_mode` | Type Of Video Player Size, you can pass **Fill**,**Fit**,**Zoom** |
 | `andexo_full_screen` | Show FullScreen Toggle Button, you can Pass **True**,**False** |
 | `andexo_play_when_ready` | Player Start Playing On Stream Is Ready **True**,**False** |
-| `andexo_aspect_ratio` | In Order To Get The Desired Playerr Size, You Can Pass The Aspect Ratios You Need **ASPECT_1_1**, **ASPECT_16_9**, **ASPECT_4_3**, **ASPECT_MATCH** |
+| `andexo_aspect_ratio` | In Order To Get The Desired Playerr Size, You Can Pass The Aspect Ratios You Need **ASPECT_1_1**, **ASPECT_16_9**, **ASPECT_4_3**, **ASPECT_MATCH**, **ASPECT_MP3** |
 
 
 ## XML With Custom Attrs.
