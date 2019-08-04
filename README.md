@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
 
 # MagicalExoPlayer
-The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS** And **DASH**. 
+The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS**, **DASH**  And **MP3**. 
 
 ![mock_up_and_exo_player_2](https://user-images.githubusercontent.com/13493645/62006476-1e969680-b156-11e9-80f0-2ccc1df1e7be.jpg)
 
@@ -31,7 +31,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.5'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.7'
 }
 ```
 
