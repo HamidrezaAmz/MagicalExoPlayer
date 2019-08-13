@@ -6,6 +6,7 @@
         <attr name="andexo_aspect_ratio" />
         <attr name="andexo_full_screen" format="boolean" />
         <attr name="andexo_play_when_ready" format="boolean" />
+        <attr name="andexo_show_controller" format="boolean" />
     </declare-styleable>
 
     <attr name="andexo_resize_mode" format="enum">

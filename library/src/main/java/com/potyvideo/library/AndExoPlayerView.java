@@ -59,6 +59,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private boolean isPreparing = false;
     private TypedArray typedArray = null;
     private boolean currPlayWhenReady = false;
+    private boolean showController = true;
     private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
 
@@ -208,6 +209,10 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                 setPlayWhenReady(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_play_when_ready, false));
             }
 
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_show_controller)) {
+                setShowController(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_show_controller, true));
+            }
+
             typedArray.recycle();
         }
 
@@ -295,9 +300,17 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             simpleExoPlayer.stop();
     }
 
-    public void hideController() {
-        if (playerView != null)
+    public void setShowController(boolean showController) {
+        if (playerView == null)
+            return;
+
+        if (showController) {
+            playerView.showController();
+            playerView.setUseController(true);
+        } else {
             playerView.hideController();
+            playerView.setUseController(false);
+        }
     }
 
     public void setResizeMode(EnumResizeMode resizeMode) {
