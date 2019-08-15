@@ -86,7 +86,7 @@ Or
 
 
 ## TIP
-If you wan to support full screen, please add this config into your activity in manifest.xml
+* If you wan to support full screen, please add this config into your activity in manifest.xml
 ```xml
 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
 ```
@@ -102,6 +102,14 @@ For example your activity with be something like this
           <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
 </activity>
+```
+
+
+* If you want to pass custom headers over your stream url, you can just pass them as a hashmap like this:
+```java
+  HashMap<String , String> extraHeaders = new HashMap<>();
+  extraHeaders.put("foo","bar");
+  andExoPlayerView.setSource(TEST_URL_HLS, extraHeaders);
 ```
 
 
