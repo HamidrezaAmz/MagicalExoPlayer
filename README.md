@@ -5,7 +5,7 @@
 # MagicalExoPlayer
 The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS**, **DASH**  And **MP3**. 
 
-![mock_up_and_exo_player_2](https://user-images.githubusercontent.com/13493645/62006476-1e969680-b156-11e9-80f0-2ccc1df1e7be.jpg)
+![mock_up_and_exo_player_2](https://user-images.githubusercontent.com/13493645/63092374-cbef1400-bf76-11e9-8727-734f036692ca.jpg)
 
 ## Getting Started
 
