@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@drawable/shape_border</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+</resources>

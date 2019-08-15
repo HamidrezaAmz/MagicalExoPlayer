@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -28,8 +29,8 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
@@ -50,6 +51,9 @@ import com.potyvideo.library.globalEnums.EnumResizeMode;
 import com.potyvideo.library.utils.PublicFunctions;
 import com.potyvideo.library.utils.PublicValues;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
 
     private Context context;
@@ -66,7 +70,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
     private ComponentListener componentListener;
-    private LinearLayout linearLayoutRetry;
+    private LinearLayout linearLayoutRetry, linearLayoutLoading;
+    private AppCompatButton buttonRetry;
     private FrameLayout frameLayoutFullScreenContainer;
     private AppCompatImageButton imageViewEnterFullScreen, imageViewExitFullScreen;
 
@@ -94,6 +99,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                         // this is accurate
                         isPreparing = false;
                     }
+                    hideProgress();
                     stateString = "ExoPlayer.STATE_READY     -";
                     break;
                 case Player.STATE_ENDED:
@@ -103,6 +109,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     stateString = "UNKNOWN_STATE             -";
                     break;
             }
+
             Log.d(TAG, "changed state to " + stateString
                     + " playWhenReady: " + playWhenReady);
         }
@@ -129,7 +136,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
-            linearLayoutRetry.setVisibility(VISIBLE);
+            showRetry();
         }
 
         @Override
@@ -146,6 +153,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         public void onSeekProcessed() {
 
         }
+
     }
 
     public AndExoPlayerView(Context context) {
@@ -178,7 +186,9 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         View view = inflater.inflate(R.layout.layout_player_base, this, true);
 
         playerView = view.findViewById(R.id.simpleExoPlayerView);
+        linearLayoutLoading = findViewById(R.id.linearLayoutLoading);
         linearLayoutRetry = findViewById(R.id.linearLayoutRetry);
+        buttonRetry = findViewById(R.id.appCompatButton_try_again);
         frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);
         imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);
         imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);
@@ -188,6 +198,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         linearLayoutRetry.setOnClickListener(this);
         imageViewEnterFullScreen.setOnClickListener(this);
         imageViewExitFullScreen.setOnClickListener(this);
+        buttonRetry.setOnClickListener(this);
 
         if (typedArray != null) {
 
@@ -233,16 +244,31 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             playerView.setPlayer(simpleExoPlayer);
             simpleExoPlayer.setPlayWhenReady(currPlayWhenReady);
             simpleExoPlayer.seekTo(currentWindow, playbackPosition);
+            simpleExoPlayer.addListener(componentListener);
         }
     }
 
     public void setSource(String source) {
-        MediaSource mediaSource = buildMediaSource(source);
-        if (mediaSource != null)
-            simpleExoPlayer.prepare(mediaSource, true, false);
+        MediaSource mediaSource = buildMediaSource(source, null);
+        if (mediaSource != null) {
+            if (simpleExoPlayer != null) {
+                showProgress();
+                simpleExoPlayer.prepare(mediaSource, true, false);
+            }
+        }
     }
 
-    private MediaSource buildMediaSource(String source) {
+    public void setSource(String source, HashMap<String, String> extraHeaders) {
+        MediaSource mediaSource = buildMediaSource(source, extraHeaders);
+        if (mediaSource != null) {
+            if (simpleExoPlayer != null) {
+                showProgress();
+                simpleExoPlayer.prepare(mediaSource, true, false);
+            }
+        }
+    }
+
+    private MediaSource buildMediaSource(String source, HashMap<String, String> extraHeaders) {
 
         if (source == null) {
             Toast.makeText(context, "Input Is Invalid.", Toast.LENGTH_SHORT).show();
@@ -260,21 +286,47 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         }
 
         if (validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
-            return new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))
+
+            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
+            if (extraHeaders != null) {
+                for (Map.Entry<String, String> entry : extraHeaders.entrySet())
+                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+            }
+
+            return new ProgressiveMediaSource.Factory(sourceFactory)
                     .createMediaSource(uri);
+
         } else if (!validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
-            return new ExtractorMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
+            return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
                     .createMediaSource(uri);
+
         } else if (uri.getLastPathSegment().contains(PublicValues.KEY_HLS)) {
-            return new HlsMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))
+            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
+            if (extraHeaders != null) {
+                for (Map.Entry<String, String> entry : extraHeaders.entrySet())
+                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+            }
+
+            return new HlsMediaSource.Factory(sourceFactory)
                     .createMediaSource(uri);
+
         } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)) {
-            return new ExtractorMediaSource.Factory(new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT))
+
+            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
+            if (extraHeaders != null) {
+                for (Map.Entry<String, String> entry : extraHeaders.entrySet())
+                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+            }
+
+            return new ProgressiveMediaSource.Factory(sourceFactory)
                     .createMediaSource(uri);
+
         } else {
             DefaultDashChunkSource.Factory dashChunkSourceFactory = new DefaultDashChunkSource.Factory(new DefaultHttpDataSourceFactory("ua", new DefaultBandwidthMeter()));
             DefaultHttpDataSourceFactory manifestDataSourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
-            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory).createMediaSource(uri);
+            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory)
+                    .createMediaSource(uri);
+
         }
     }
 
@@ -431,16 +483,16 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         if (playerView == null)
             return;
 
-        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
 
     @Override
     public void onClick(View v) {
 
         int targetViewId = v.getId();
-        if (targetViewId == R.id.linearLayoutRetry) {
-            initializeView(context);
+        if (targetViewId == R.id.appCompatButton_try_again) {
+            hideRetry();
+            setSource(currSource);
         } else if (targetViewId == R.id.exo_enter_fullscreen) {
             enterFullScreen();
         } else if (targetViewId == R.id.exo_exit_fullscreen) {
@@ -462,6 +514,35 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         if (getActivity() != null)
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    }
+
+    private void showProgress() {
+        hideAll();
+        if (linearLayoutLoading != null)
+            linearLayoutLoading.setVisibility(VISIBLE);
+    }
+
+    private void hideProgress() {
+        if (linearLayoutLoading != null)
+            linearLayoutLoading.setVisibility(GONE);
+    }
+
+    private void showRetry() {
+        hideAll();
+        if (linearLayoutRetry != null)
+            linearLayoutRetry.setVisibility(VISIBLE);
+    }
+
+    private void hideRetry() {
+        if (linearLayoutRetry != null)
+            linearLayoutRetry.setVisibility(GONE);
+    }
+
+    private void hideAll() {
+        if (linearLayoutRetry != null)
+            linearLayoutRetry.setVisibility(GONE);
+        if (linearLayoutLoading != null)
+            linearLayoutLoading.setVisibility(GONE);
     }
 
 }

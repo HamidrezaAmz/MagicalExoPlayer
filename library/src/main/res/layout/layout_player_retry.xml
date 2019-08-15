@@ -6,9 +6,14 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/global_padding_extra"
+        android:id="@+id/appCompatButton_try_again"
+        style="@style/AppTheme.Button"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:drawableEnd="@drawable/ic_replay_black_24dp"
+        android:drawableRight="@drawable/ic_replay_black_24dp"
+        android:paddingEnd="@dimen/global_padding"
+        android:paddingRight="@dimen/global_padding"
         android:text="@string/title_retry" />
 
 </LinearLayout>
