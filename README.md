@@ -109,7 +109,7 @@ For example your activity with be something like this
 ```java
   HashMap<String , String> extraHeaders = new HashMap<>();
   extraHeaders.put("foo","bar");
-  andExoPlayerView.setSource(TEST_URL_HLS, extraHeaders);
+  andExoPlayerView.setSource("STREAM_URL", extraHeaders);
 ```
 
 
