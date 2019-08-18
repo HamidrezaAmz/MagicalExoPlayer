@@ -352,6 +352,11 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             simpleExoPlayer.stop();
     }
 
+    public void pausePlayer() {
+        if (simpleExoPlayer != null)
+            simpleExoPlayer.setPlayWhenReady(!simpleExoPlayer.getPlayWhenReady());
+    }
+
     public void setShowController(boolean showController) {
         if (playerView == null)
             return;
