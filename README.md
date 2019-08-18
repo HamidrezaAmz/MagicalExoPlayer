@@ -1,10 +1,11 @@
+![GitHub](https://img.shields.io/github/license/hamidrezaamz/MagicalExoPlayer)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
 [![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
 
 # MagicalExoPlayer
 The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS**, **DASH**  And **MP3**. 
 
-![mock_up_and_exo_player_2](https://user-images.githubusercontent.com/13493645/62006476-1e969680-b156-11e9-80f0-2ccc1df1e7be.jpg)
+![mock_up_and_exo_player_2](https://user-images.githubusercontent.com/13493645/63092374-cbef1400-bf76-11e9-8727-734f036692ca.jpg)
 
 ## Getting Started
 
@@ -31,7 +32,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.9'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.11'
 }
 ```
 
@@ -86,7 +87,7 @@ Or
 
 
 ## TIP
-If you wan to support full screen, please add this config into your activity in manifest.xml
+* If you wan to support full screen, please add this config into your activity in manifest.xml
 ```xml
 android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
 ```
@@ -102,6 +103,14 @@ For example your activity with be something like this
           <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
 </activity>
+```
+
+
+* If you want to pass custom headers over your stream url, you can just pass them as a hashmap like this:
+```java
+  HashMap<String , String> extraHeaders = new HashMap<>();
+  extraHeaders.put("foo","bar");
+  andExoPlayerView.setSource("STREAM_URL", extraHeaders);
 ```
 
 
