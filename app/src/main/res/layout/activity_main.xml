@@ -60,12 +60,6 @@
             android:padding="@dimen/global_padding_extra"
             android:text="SOME OTHER VIEWS ;)" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButtonPause"
-            android:layout_width="match_parent"
-            android:text="PAUSE"
-            android:layout_height="wrap_content" />
-
     </LinearLayout>
 
 </LinearLayout>

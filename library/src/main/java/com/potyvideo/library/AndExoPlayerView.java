@@ -48,6 +48,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.potyvideo.library.globalEnums.EnumAspectRatio;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
+import com.potyvideo.library.globalInterfaces.ExoPlayerCallBack;
 import com.potyvideo.library.utils.PublicFunctions;
 import com.potyvideo.library.utils.PublicValues;
 
@@ -79,6 +80,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private ExtractorsFactory extractorsFactory;
     private TrackSelection.Factory trackSelectionFactory;
     private TrackSelector trackSelector;
+
+    private ExoPlayerCallBack exoPlayerCallBack;
 
     public class ComponentListener implements Player.EventListener {
 
@@ -137,6 +140,9 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         @Override
         public void onPlayerError(ExoPlaybackException error) {
             showRetry();
+
+            if (exoPlayerCallBack != null)
+                exoPlayerCallBack.onError();
         }
 
         @Override
@@ -503,6 +509,10 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         } else if (targetViewId == R.id.exo_exit_fullscreen) {
             exitFullScreen();
         }
+    }
+
+    public void setExoPlayerCallBack(ExoPlayerCallBack exoPlayerCallBack) {
+        this.exoPlayerCallBack = exoPlayerCallBack;
     }
 
     private void enterFullScreen() {
