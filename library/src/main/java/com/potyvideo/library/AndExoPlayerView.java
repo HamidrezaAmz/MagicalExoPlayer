@@ -80,7 +80,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private ExtractorsFactory extractorsFactory;
     private TrackSelection.Factory trackSelectionFactory;
     private TrackSelector trackSelector;
-    public ComponentListener extraListener;
+    public Player.EventListener extraListener;
 
     private ExoPlayerCallBack exoPlayerCallBack;
 
