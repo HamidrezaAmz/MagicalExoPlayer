@@ -68,7 +68,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
 
-    private SimpleExoPlayer simpleExoPlayer;
+    public SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
     private ComponentListener componentListener;
     private LinearLayout linearLayoutRetry, linearLayoutLoading;
@@ -80,6 +80,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private ExtractorsFactory extractorsFactory;
     private TrackSelection.Factory trackSelectionFactory;
     private TrackSelector trackSelector;
+    public ComponentListener extraListener;
 
     private ExoPlayerCallBack exoPlayerCallBack;
 
@@ -89,6 +90,9 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+            if (extraListener != null){
+                extraListener.onPlayerStateChanged(playWhenReady, playbackState);
+            }
             String stateString;
             switch (playbackState) {
                 case Player.STATE_IDLE:
@@ -119,26 +123,37 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         @Override
         public void onRepeatModeChanged(int repeatMode) {
-
+            if (extraListener != null){
+                extraListener.onRepeatModeChanged(repeatMode);
+            }
         }
 
         @Override
         public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
-
+            if (extraListener != null){
+                extraListener.onShuffleModeEnabledChanged(shuffleModeEnabled);
+            }
         }
 
         @Override
         public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
-
+            if (extraListener != null){
+                extraListener.onTracksChanged(trackGroups, trackSelections);
+            }
         }
 
         @Override
         public void onLoadingChanged(boolean isLoading) {
-
+            if (extraListener != null){
+                extraListener.onLoadingChanged(isLoading);
+            }
         }
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
+            if (extraListener != null){
+                extraListener.onPlayerError(error);
+            }
             showRetry();
 
             if (exoPlayerCallBack != null)
@@ -147,17 +162,23 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
         @Override
         public void onPositionDiscontinuity(int reason) {
-
+            if (extraListener != null){
+                extraListener.onPositionDiscontinuity(reason);
+            }
         }
 
         @Override
         public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
-
+            if (extraListener != null){
+                extraListener.onPlaybackParametersChanged(playbackParameters);
+            }
         }
 
         @Override
         public void onSeekProcessed() {
-
+            if (extraListener != null){
+                extraListener.onSeekProcessed();
+            }
         }
 
     }
