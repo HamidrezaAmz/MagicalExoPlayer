@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -10,8 +11,8 @@
         style="@style/AppTheme.Button"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:drawableEnd="@drawable/ic_replay_black_24dp"
-        android:drawableRight="@drawable/ic_replay_black_24dp"
+        app:drawableEndCompat="@drawable/ic_replay_black_24dp"
+        app:drawableRightCompat="@drawable/ic_replay_black_24dp"
         android:paddingEnd="@dimen/global_padding"
         android:paddingRight="@dimen/global_padding"
         android:text="@string/title_retry" />
