@@ -4,6 +4,7 @@
     <declare-styleable name="AndExoPlayerView">
         <attr name="andexo_resize_mode" />
         <attr name="andexo_aspect_ratio" />
+        <attr name="andexo_loop" />
         <attr name="andexo_full_screen" format="boolean" />
         <attr name="andexo_play_when_ready" format="boolean" />
         <attr name="andexo_show_controller" format="boolean" />
@@ -21,6 +22,11 @@
         <enum name="aspect_4_3" value="3" />
         <enum name="aspect_match" value="4" />
         <enum name="aspect_mp3" value="5" />
+    </attr>
+
+    <attr name="andexo_loop" format="enum">
+        <enum name="infinite" value="1" />
+        <enum name="finite" value="2" />
     </attr>
 
 </resources>

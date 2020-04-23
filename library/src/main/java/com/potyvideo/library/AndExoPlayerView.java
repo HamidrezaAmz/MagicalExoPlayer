@@ -29,6 +29,7 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -47,6 +48,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.potyvideo.library.globalEnums.EnumAspectRatio;
+import com.potyvideo.library.globalEnums.EnumLoop;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
 import com.potyvideo.library.globalInterfaces.ExoPlayerCallBack;
 import com.potyvideo.library.utils.PublicFunctions;
@@ -67,6 +69,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private boolean showController = true;
     private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
+    private EnumLoop currLoop = EnumLoop.Finite;
 
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
@@ -230,6 +233,11 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                 setShowController(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_show_controller, true));
             }
 
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_loop)) {
+                EnumLoop enumLoop = EnumLoop.get(typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_loop, EnumLoop.Finite.getValue()));
+                setLoopMode(enumLoop);
+            }
+
             typedArray.recycle();
         }
 
@@ -239,7 +247,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     public SimpleExoPlayer getPlayer() {
         return simpleExoPlayer;
     }
-    
+
     private void initializePlayer() {
 
         if (simpleExoPlayer == null) {
@@ -263,7 +271,20 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         if (mediaSource != null) {
             if (simpleExoPlayer != null) {
                 showProgress();
-                simpleExoPlayer.prepare(mediaSource, true, false);
+
+                switch (currLoop) {
+                    case INFINITE: {
+                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
+                        simpleExoPlayer.prepare(loopingSource, true, false);
+                        break;
+                    }
+
+                    case Finite:
+                    default: {
+                        simpleExoPlayer.prepare(mediaSource, true, false);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -273,7 +294,20 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         if (mediaSource != null) {
             if (simpleExoPlayer != null) {
                 showProgress();
-                simpleExoPlayer.prepare(mediaSource, true, false);
+
+                switch (currLoop) {
+                    case INFINITE: {
+                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
+                        simpleExoPlayer.prepare(loopingSource, true, false);
+                        break;
+                    }
+
+                    case Finite:
+                    default: {
+                        simpleExoPlayer.prepare(mediaSource, true, false);
+                        break;
+                    }
+                }
             }
         }
     }
@@ -442,6 +476,10 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                 playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));
                 break;
         }
+    }
+
+    private void setLoopMode(EnumLoop loopMode) {
+        this.currLoop = loopMode;
     }
 
     private Activity getActivity() {
