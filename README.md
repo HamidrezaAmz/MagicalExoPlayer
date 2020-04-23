@@ -70,6 +70,7 @@ Or
 | `andexo_play_when_ready` | Player Start Playing On Stream Is Ready **True**,**False** |
 | `andexo_aspect_ratio` | In Order To Get The Desired Playerr Size, You Can Pass The Aspect Ratios You Need **ASPECT_1_1**, **ASPECT_16_9**, **ASPECT_4_3**, **ASPECT_MATCH**, **ASPECT_MP3** |
 | `andexo_show_controller` | Show Or Hide Player Controller **True**,**False** |
+| `andexo_loop` | Play video with loop modes **Infinite**,**Finite** |
 
 
 ## XML With Custom Attrs.
