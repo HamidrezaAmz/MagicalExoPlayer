@@ -329,7 +329,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             return null;
         }
 
-        if (validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+        if (validUrl && (uri.getLastPathSegment().contains(PublicValues.KEY_MP4) || uri.getLastPathSegment().contains(PublicValues.KEY_MP4_CAPS))) {
 
             DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
             if (extraHeaders != null) {
@@ -340,7 +340,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             return new ProgressiveMediaSource.Factory(sourceFactory)
                     .createMediaSource(uri);
 
-        } else if (!validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+        } else if (!validUrl && (uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) || uri.getLastPathSegment().contains(PublicValues.KEY_MP4_CAPS)) {
             return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
                     .createMediaSource(uri);
 
@@ -603,3 +603,4 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     }
 
 }
+
