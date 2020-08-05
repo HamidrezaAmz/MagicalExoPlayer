@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String TEST_URL_MP3 = "https://host2.rj-mw1.com/media/podcast/mp3-192/Tehranto-41.mp3";
 
+    private String TEST_URL_OGG = "http://backyard.vaslapp.com/res/036e77f0-a94e-4165-9832-1a8e39c1e089/USER_FILES/audio.ogg";
+
     private int req_code = 129;
 
     @Override
@@ -62,10 +64,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.ogg).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadOgg();
+            }
+        });
+
     }
 
     private void loadMp3() {
         andExoPlayerView.setSource(TEST_URL_MP3);
+    }
+
+    private void loadOgg() {
+        andExoPlayerView.setSource(TEST_URL_OGG);
     }
 
     private void loadHls() {
