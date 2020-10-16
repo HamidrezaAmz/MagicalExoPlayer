@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.potyvideo.library.AndExoPlayerView;
-import com.potyvideo.library.globalInterfaces.ExoPlayerCallBack;
 import com.potyvideo.library.utils.PathUtil;
 import com.potyvideo.library.utils.PublicFunctions;
 
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AndExoPlayerView andExoPlayerView;
 
-    private String TEST_URL_MP4 = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
+    private String TEST_URL_MP4 = "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4";
 
     private String TEST_URL_HLS = "https://content.jwplatform.com/manifests/yp34SRmf.m3u8";
 

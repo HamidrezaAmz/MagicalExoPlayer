@@ -34,7 +34,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
-
     implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
 
     testImplementation 'junit:junit:4.12'
