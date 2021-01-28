@@ -121,11 +121,7 @@ For example your activity with be something like this
 
 
 
-## Author
 
-* **Hamidreza amoozadeh** - *Android DEV* - [github](https://github.com/HamidrezaAmz)
-
-
-:star: Support my projects
+## :heart: Support my projects 
 
 If you think this library was helpful for you ;) Bitcoin wallet: 1FAAaxU7HFjn4zX7N5rYvvkAFiymjC1Pfy
