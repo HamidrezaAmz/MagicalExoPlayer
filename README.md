@@ -120,6 +120,7 @@ For example your activity with be something like this
 * [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player - Version 2.10.3
 
 
+***
 
 ## :heart: Support My Projects 
 However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it
