@@ -129,3 +129,5 @@ However, if you get some profit from this or just want to encourage me to contin
 * Bitcoin—You can send me bitcoins at this address (or scanning the code below):
 
 `16cAkXGQRjx6xLH4CCN5wyWaVDQH2pzyVu`
+
+
