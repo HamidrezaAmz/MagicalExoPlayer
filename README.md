@@ -127,4 +127,4 @@ For example your activity with be something like this
 
 
 ## Donation
-If you think this library was helpful ;) Bitcoin wallet: 1FAAaxU7HFjn4zX7N5rYvvkAFiymjC1Pfy
+If you think this library was helpful for you ;) Bitcoin wallet: 1FAAaxU7HFjn4zX7N5rYvvkAFiymjC1Pfy
