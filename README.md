@@ -121,7 +121,13 @@ For example your activity with be something like this
 
 
 
+## :heart: Support My Projects 
+However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it
 
-## :heart: Support my projects 
+Starring and sharing the projects you like 🚀
 
-If you think this library was helpful for you ;) Bitcoin wallet: 1FAAaxU7HFjn4zX7N5rYvvkAFiymjC1Pfy
+
+
+
+
+If you think this library was helpful for you ;) Bitcoin wallet: 16cAkXGQRjx6xLH4CCN5wyWaVDQH2pzyVu
