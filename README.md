@@ -124,3 +124,7 @@ For example your activity with be something like this
 ## Author
 
 * **Hamidreza amoozadeh** - *Android DEV* - [github](https://github.com/HamidrezaAmz)
+
+
+## Donation
+If you think this library was helpful ;) Bitcoin wallet: 1FAAaxU7HFjn4zX7N5rYvvkAFiymjC1Pfy
