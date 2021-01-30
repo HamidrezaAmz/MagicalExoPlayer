@@ -318,8 +318,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     }
 
     private MediaSource buildMediaSourceFromUri(String source) {
-        DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
-        return new ProgressiveMediaSource.Factory(sourceFactory)
+        return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
                 .createMediaSource(Uri.parse(source));
     }
 
