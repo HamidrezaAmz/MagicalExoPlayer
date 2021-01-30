@@ -290,6 +290,39 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         }
     }
 
+    public void setSource(String source, boolean local) {
+        if(!local) {
+            setSource(source);
+            return;
+        }
+        MediaSource mediaSource = buildMediaSourceFromUri(source);
+        if (mediaSource != null) {
+            if (simpleExoPlayer != null) {
+                showProgress();
+
+                switch (currLoop) {
+                    case INFINITE: {
+                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
+                        simpleExoPlayer.prepare(loopingSource, true, false);
+                        break;
+                    }
+
+                    case Finite:
+                    default: {
+                        simpleExoPlayer.prepare(mediaSource, true, false);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private MediaSource buildMediaSourceFromUri(String source) {
+        DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
+        return new ProgressiveMediaSource.Factory(sourceFactory)
+                .createMediaSource(Uri.parse(source));
+    }
+
     public void setSource(String source, HashMap<String, String> extraHeaders) {
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
         if (mediaSource != null) {
