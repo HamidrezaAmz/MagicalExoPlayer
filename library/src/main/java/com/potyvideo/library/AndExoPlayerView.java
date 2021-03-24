@@ -60,6 +60,8 @@ import java.util.Map;
 
 public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
 
+    // here we go for new java branch
+
     private Context context;
     private String currSource = "";
     private int currentWindow = 0;
