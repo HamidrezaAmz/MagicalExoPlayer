@@ -22,17 +22,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
-import com.google.android.exoplayer2.extractor.ogg.OggExtractor;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.MergingMediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.source.SingleSampleMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
@@ -48,6 +51,7 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.util.MimeTypes;
 import com.potyvideo.library.globalEnums.EnumAspectRatio;
 import com.potyvideo.library.globalEnums.EnumLoop;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
@@ -71,6 +75,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
     private EnumLoop currLoop = EnumLoop.Finite;
+    private boolean hasSRT = true;
 
     private SimpleExoPlayer simpleExoPlayer;
     private PlayerView playerView;
@@ -268,29 +273,11 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     }
 
     public void setSource(String source) {
-        MediaSource mediaSource = buildMediaSource(source, null);
-        if (mediaSource != null) {
-            if (simpleExoPlayer != null) {
-                showProgress();
-
-                switch (currLoop) {
-                    case INFINITE: {
-                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
-                        simpleExoPlayer.prepare(loopingSource, true, false);
-                        break;
-                    }
-
-                    case Finite:
-                    default: {
-                        simpleExoPlayer.prepare(mediaSource, true, false);
-                        break;
-                    }
-                }
-            }
-        }
+        setSource(source, null);
     }
 
     public void setSource(String source, HashMap<String, String> extraHeaders) {
+
         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
         if (mediaSource != null) {
             if (simpleExoPlayer != null) {
@@ -338,8 +325,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
             }
 
-            return new ProgressiveMediaSource.Factory(sourceFactory)
-                    .createMediaSource(uri);
+            return new ProgressiveMediaSource.Factory(sourceFactory).createMediaSource(uri);
 
         } else if (!validUrl && (uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) || uri.getLastPathSegment().contains(PublicValues.KEY_MP4_CAPS)) {
             return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
@@ -352,21 +338,9 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
             }
 
-            return new HlsMediaSource.Factory(sourceFactory)
-                    .createMediaSource(uri);
+            return new HlsMediaSource.Factory(sourceFactory).createMediaSource(uri);
 
-        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)){
-
-            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
-            if (extraHeaders != null) {
-                for (Map.Entry<String, String> entry : extraHeaders.entrySet())
-                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
-            }
-
-            return new ProgressiveMediaSource.Factory(sourceFactory)
-                    .createMediaSource(uri);
-
-        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_OGG)){
+        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)) {
 
             DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
             if (extraHeaders != null) {
@@ -374,16 +348,27 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                     sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
             }
 
-            return new ProgressiveMediaSource.Factory(sourceFactory, OggExtractor.FACTORY)
-                    .createMediaSource(uri);
+            return new ProgressiveMediaSource.Factory(sourceFactory).createMediaSource(uri);
 
         } else {
             DefaultDashChunkSource.Factory dashChunkSourceFactory = new DefaultDashChunkSource.Factory(new DefaultHttpDataSourceFactory("ua", new DefaultBandwidthMeter()));
             DefaultHttpDataSourceFactory manifestDataSourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
-            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory)
-                    .createMediaSource(uri);
 
+            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory).createMediaSource(uri);
         }
+    }
+
+    private MergingMediaSource buildSRTMediaSource(DefaultHttpDataSourceFactory dataSourceFactory, MediaSource videoSource) {
+
+        Uri srtUri = Uri.parse("http://www.storiesinflight.com/js_videosub/jellies.srt");
+
+        Format textFormat = Format.createTextSampleFormat(null, MimeTypes.APPLICATION_SUBRIP,
+                null, Format.NO_VALUE, Format.NO_VALUE, "en", null, Format.OFFSET_SAMPLE_RELATIVE);
+        MediaSource textMediaSource = new SingleSampleMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(srtUri, textFormat, C.TIME_UNSET);
+
+        return new MergingMediaSource(videoSource, textMediaSource);
+
     }
 
     private void releasePlayer() {

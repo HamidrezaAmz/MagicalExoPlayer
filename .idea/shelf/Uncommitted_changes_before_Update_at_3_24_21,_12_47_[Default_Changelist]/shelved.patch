@@ -1,0 +1,268 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.application'\n\nandroid {\n\n    buildToolsVersion = '28.0.3'\n    compileSdkVersion 28\n\n    defaultConfig {\n        applicationId \"com.potyvideo.andexoplayer\"\n        minSdkVersion 16\n        targetSdkVersion 28\n        versionCode 1\n        versionName \"1.0\"\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n    buildTypes {\n        release {\n            minifyEnabled false\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n        }\n    }\n    compileOptions {\n        sourceCompatibility = '1.8'\n        targetCompatibility = '1.8'\n    }\n}\n\ndependencies {\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\n    implementation 'androidx.appcompat:appcompat:1.1.0'\n    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'\n\n    testImplementation 'junit:junit:4.12'\n    androidTestImplementation 'androidx.test:runner:1.2.0'\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\n\n    implementation project(path: ':library')\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 302fb3ca00553893ac2a7f1125b263c6369fa2a1)
++++ app/build.gradle	(date 1616573846000)
+@@ -2,13 +2,13 @@
+ 
+ android {
+ 
+-    buildToolsVersion = '28.0.3'
+-    compileSdkVersion 28
++    buildToolsVersion = '29.0.3'
++    compileSdkVersion 29
+ 
+     defaultConfig {
+         applicationId "com.potyvideo.andexoplayer"
+         minSdkVersion 16
+-        targetSdkVersion 28
++        targetSdkVersion 29
+         versionCode 1
+         versionName "1.0"
+         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+@@ -26,13 +26,14 @@
+ }
+ 
+ dependencies {
++
+     implementation fileTree(dir: 'libs', include: ['*.jar'])
+-    implementation 'androidx.appcompat:appcompat:1.1.0'
+-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
++    implementation 'androidx.appcompat:appcompat:1.2.0'
++    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+ 
+-    testImplementation 'junit:junit:4.12'
+-    androidTestImplementation 'androidx.test:runner:1.2.0'
+-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
++    testImplementation 'junit:junit:4.13.2'
++    androidTestImplementation 'androidx.test:runner:1.3.0'
++    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+ 
+     implementation project(path: ':library')
+ }
+Index: library/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>apply plugin: 'com.android.library'\napply plugin: 'com.github.dcendents.android-maven'\ngroup = 'com.github.HamidrezaAmz'\n\nandroid {\n\n    buildToolsVersion = '28.0.3'\n    compileSdkVersion 28\n\n    defaultConfig {\n        minSdkVersion 16\n        targetSdkVersion 28\n        versionCode 15\n        versionName \"1.0.15\"\n        vectorDrawables.useSupportLibrary = true\n\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\n    }\n\n    buildTypes {\n        release {\n            minifyEnabled false\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\n        }\n    }\n    compileOptions {\n        sourceCompatibility = '1.8'\n        targetCompatibility = '1.8'\n    }\n}\n\ndependencies {\n\n    implementation fileTree(dir: 'libs', include: ['*.jar'])\n\n    implementation 'androidx.appcompat:appcompat:1.1.0'\n    implementation 'com.google.android.exoplayer:exoplayer:2.11.4'\n\n    testImplementation 'junit:junit:4.12'\n    androidTestImplementation 'androidx.test:runner:1.2.0'\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- library/build.gradle	(revision 302fb3ca00553893ac2a7f1125b263c6369fa2a1)
++++ library/build.gradle	(date 1616573800000)
+@@ -33,10 +33,10 @@
+ 
+     implementation fileTree(dir: 'libs', include: ['*.jar'])
+ 
+-    implementation 'androidx.appcompat:appcompat:1.1.0'
++    implementation 'androidx.appcompat:appcompat:1.2.0'
+     implementation 'com.google.android.exoplayer:exoplayer:2.11.4'
+ 
+-    testImplementation 'junit:junit:4.12'
+-    androidTestImplementation 'androidx.test:runner:1.2.0'
+-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
++    testImplementation 'junit:junit:4.13.2'
++    androidTestImplementation 'androidx.test:runner:1.3.0'
++    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+ }
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\n\nbuildscript {\n\n    repositories {\n        google()\n        jcenter()\n    }\n\n    dependencies {\n        classpath 'com.android.tools.build:gradle:4.0.1'\n        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'\n\n        // NOTE: Do not place your application dependencies here; they belong\n        // in the individual module build.gradle files\n    }\n}\n\nallprojects {\n    repositories {\n        google()\n        jcenter()\n\n    }\n}\n\ntask clean(type: Delete) {\n    delete rootProject.buildDir\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 302fb3ca00553893ac2a7f1125b263c6369fa2a1)
++++ build.gradle	(date 1616573800000)
+@@ -8,7 +8,7 @@
+     }
+ 
+     dependencies {
+-        classpath 'com.android.tools.build:gradle:4.0.1'
++        classpath 'com.android.tools.build:gradle:4.1.2'
+         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+Index: library/src/main/java/com/potyvideo/library/AndExoPlayerView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.potyvideo.library;\n\nimport android.annotation.SuppressLint;\nimport android.app.Activity;\nimport android.content.Context;\nimport android.content.ContextWrapper;\nimport android.content.pm.ActivityInfo;\nimport android.content.res.Configuration;\nimport android.content.res.TypedArray;\nimport android.net.Uri;\nimport android.util.AttributeSet;\nimport android.util.Log;\nimport android.view.LayoutInflater;\nimport android.view.View;\nimport android.view.ViewGroup;\nimport android.webkit.URLUtil;\nimport android.widget.FrameLayout;\nimport android.widget.LinearLayout;\nimport android.widget.Toast;\n\nimport androidx.annotation.Nullable;\nimport androidx.appcompat.widget.AppCompatButton;\nimport androidx.appcompat.widget.AppCompatImageButton;\n\nimport com.google.android.exoplayer2.ExoPlaybackException;\nimport com.google.android.exoplayer2.ExoPlayerFactory;\nimport com.google.android.exoplayer2.PlaybackParameters;\nimport com.google.android.exoplayer2.Player;\nimport com.google.android.exoplayer2.SimpleExoPlayer;\nimport com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;\nimport com.google.android.exoplayer2.extractor.ExtractorsFactory;\nimport com.google.android.exoplayer2.source.LoopingMediaSource;\nimport com.google.android.exoplayer2.source.MediaSource;\nimport com.google.android.exoplayer2.source.ProgressiveMediaSource;\nimport com.google.android.exoplayer2.source.TrackGroupArray;\nimport com.google.android.exoplayer2.source.dash.DashMediaSource;\nimport com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;\nimport com.google.android.exoplayer2.source.hls.HlsMediaSource;\nimport com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;\nimport com.google.android.exoplayer2.trackselection.DefaultTrackSelector;\nimport com.google.android.exoplayer2.trackselection.TrackSelection;\nimport com.google.android.exoplayer2.trackselection.TrackSelectionArray;\nimport com.google.android.exoplayer2.trackselection.TrackSelector;\nimport com.google.android.exoplayer2.ui.AspectRatioFrameLayout;\nimport com.google.android.exoplayer2.ui.PlayerView;\nimport com.google.android.exoplayer2.upstream.BandwidthMeter;\nimport com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;\nimport com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;\nimport com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;\nimport com.potyvideo.library.globalEnums.EnumAspectRatio;\nimport com.potyvideo.library.globalEnums.EnumLoop;\nimport com.potyvideo.library.globalEnums.EnumResizeMode;\nimport com.potyvideo.library.globalInterfaces.ExoPlayerCallBack;\nimport com.potyvideo.library.utils.PublicFunctions;\nimport com.potyvideo.library.utils.PublicValues;\n\nimport java.util.HashMap;\nimport java.util.Map;\n\npublic class AndExoPlayerView extends LinearLayout implements View.OnClickListener {\n\n    private Context context;\n    private String currSource = \"\";\n    private int currentWindow = 0;\n    private long playbackPosition = 0;\n    private boolean isPreparing = false;\n    private TypedArray typedArray = null;\n    private boolean currPlayWhenReady = false;\n    private boolean showController = true;\n    private EnumResizeMode currResizeMode = EnumResizeMode.FILL;\n    private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;\n    private EnumLoop currLoop = EnumLoop.Finite;\n\n    private SimpleExoPlayer simpleExoPlayer;\n    private PlayerView playerView;\n    private ComponentListener componentListener;\n    private LinearLayout linearLayoutRetry, linearLayoutLoading;\n    private AppCompatButton buttonRetry;\n    private FrameLayout frameLayoutFullScreenContainer;\n    private AppCompatImageButton imageViewEnterFullScreen, imageViewExitFullScreen;\n\n    private BandwidthMeter bandwidthMeter;\n    private ExtractorsFactory extractorsFactory;\n    private TrackSelection.Factory trackSelectionFactory;\n    private TrackSelector trackSelector;\n\n    private ExoPlayerCallBack exoPlayerCallBack;\n\n    public class ComponentListener implements Player.EventListener {\n\n        String TAG = AndExoPlayerView.ComponentListener.class.getSimpleName();\n\n        @Override\n        public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {\n            String stateString;\n            switch (playbackState) {\n                case Player.STATE_IDLE:\n                    stateString = \"ExoPlayer.STATE_IDLE      -\";\n                    break;\n                case Player.STATE_BUFFERING:\n                    stateString = \"ExoPlayer.STATE_BUFFERING -\";\n                    break;\n                case Player.STATE_READY:\n                    if (isPreparing) {\n                        // this is accurate\n                        isPreparing = false;\n                    }\n                    hideProgress();\n                    stateString = \"ExoPlayer.STATE_READY     -\";\n                    break;\n                case Player.STATE_ENDED:\n                    stateString = \"ExoPlayer.STATE_ENDED     -\";\n                    break;\n                default:\n                    stateString = \"UNKNOWN_STATE             -\";\n                    break;\n            }\n\n            Log.d(TAG, \"changed state to \" + stateString\n                    + \" playWhenReady: \" + playWhenReady);\n        }\n\n        @Override\n        public void onRepeatModeChanged(int repeatMode) {\n\n        }\n\n        @Override\n        public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {\n\n        }\n\n        @Override\n        public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {\n\n        }\n\n        @Override\n        public void onLoadingChanged(boolean isLoading) {\n\n        }\n\n        @Override\n        public void onPlayerError(ExoPlaybackException error) {\n            showRetry();\n\n            if (exoPlayerCallBack != null)\n                exoPlayerCallBack.onError();\n        }\n\n        @Override\n        public void onPositionDiscontinuity(int reason) {\n\n        }\n\n        @Override\n        public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {\n\n        }\n\n        @Override\n        public void onSeekProcessed() {\n\n        }\n\n    }\n\n    public AndExoPlayerView(Context context) {\n        super(context);\n        initializeView(context);\n    }\n\n    public AndExoPlayerView(Context context, @Nullable AttributeSet attrs) {\n        super(context, attrs);\n        typedArray = context.getTheme().obtainStyledAttributes(\n                attrs,\n                R.styleable.AndExoPlayerView,\n                0, 0);\n        initializeView(context);\n    }\n\n    public AndExoPlayerView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {\n        super(context, attrs, defStyleAttr);\n        typedArray = context.getTheme().obtainStyledAttributes(\n                attrs,\n                R.styleable.AndExoPlayerView,\n                0, 0);\n        initializeView(context);\n    }\n\n    private void initializeView(Context context) {\n        this.context = context;\n\n        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);\n        View view = inflater.inflate(R.layout.layout_player_base, this, true);\n\n        playerView = view.findViewById(R.id.simpleExoPlayerView);\n        linearLayoutLoading = findViewById(R.id.linearLayoutLoading);\n        linearLayoutRetry = findViewById(R.id.linearLayoutRetry);\n        buttonRetry = findViewById(R.id.appCompatButton_try_again);\n        frameLayoutFullScreenContainer = playerView.findViewById(R.id.container_fullscreen);\n        imageViewEnterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen);\n        imageViewExitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen);\n\n        componentListener = new ComponentListener();\n\n        linearLayoutRetry.setOnClickListener(this);\n        imageViewEnterFullScreen.setOnClickListener(this);\n        imageViewExitFullScreen.setOnClickListener(this);\n        buttonRetry.setOnClickListener(this);\n\n        if (typedArray != null) {\n\n            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_resize_mode)) {\n                int resizeMode = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_resize_mode, EnumResizeMode.FILL.getValue());\n                setResizeMode(EnumResizeMode.get(resizeMode));\n            }\n\n            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {\n                int aspectRatio = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.getValue());\n                setAspectRatio(EnumAspectRatio.get(aspectRatio));\n            }\n\n            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_full_screen)) {\n                setShowFullScreen(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_full_screen, false));\n            }\n\n            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_play_when_ready)) {\n                setPlayWhenReady(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_play_when_ready, false));\n            }\n\n            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_show_controller)) {\n                setShowController(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_show_controller, true));\n            }\n\n            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_loop)) {\n                EnumLoop enumLoop = EnumLoop.get(typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_loop, EnumLoop.Finite.getValue()));\n                setLoopMode(enumLoop);\n            }\n\n            typedArray.recycle();\n        }\n\n        initializePlayer();\n    }\n\n    public SimpleExoPlayer getPlayer() {\n        return simpleExoPlayer;\n    }\n\n    private void initializePlayer() {\n\n        if (simpleExoPlayer == null) {\n\n            bandwidthMeter = new DefaultBandwidthMeter();\n            extractorsFactory = new DefaultExtractorsFactory();\n            trackSelectionFactory = new AdaptiveTrackSelection.Factory();\n            trackSelector = new DefaultTrackSelector();\n\n            simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);\n\n            playerView.setPlayer(simpleExoPlayer);\n            simpleExoPlayer.setPlayWhenReady(currPlayWhenReady);\n            simpleExoPlayer.seekTo(currentWindow, playbackPosition);\n            simpleExoPlayer.addListener(componentListener);\n        }\n    }\n\n    public void setSource(String source) {\n        MediaSource mediaSource = buildMediaSource(source, null);\n        if (mediaSource != null) {\n            if (simpleExoPlayer != null) {\n                showProgress();\n\n                switch (currLoop) {\n                    case INFINITE: {\n                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);\n                        simpleExoPlayer.prepare(loopingSource, true, false);\n                        break;\n                    }\n\n                    case Finite:\n                    default: {\n                        simpleExoPlayer.prepare(mediaSource, true, false);\n                        break;\n                    }\n                }\n            }\n        }\n    }\n\n    public void setSource(String source, HashMap<String, String> extraHeaders) {\n        MediaSource mediaSource = buildMediaSource(source, extraHeaders);\n        if (mediaSource != null) {\n            if (simpleExoPlayer != null) {\n                showProgress();\n\n                switch (currLoop) {\n                    case INFINITE: {\n                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);\n                        simpleExoPlayer.prepare(loopingSource, true, false);\n                        break;\n                    }\n\n                    case Finite:\n                    default: {\n                        simpleExoPlayer.prepare(mediaSource, true, false);\n                        break;\n                    }\n                }\n            }\n        }\n    }\n\n    private MediaSource buildMediaSource(String source, HashMap<String, String> extraHeaders) {\n\n        if (source == null) {\n            Toast.makeText(context, \"Input Is Invalid.\", Toast.LENGTH_SHORT).show();\n            return null;\n        }\n\n        this.currSource = source;\n\n        boolean validUrl = URLUtil.isValidUrl(source);\n\n        Uri uri = Uri.parse(source);\n        if (uri == null || uri.getLastPathSegment() == null) {\n            Toast.makeText(context, \"Uri Converter Failed, Input Is Invalid.\", Toast.LENGTH_SHORT).show();\n            return null;\n        }\n\n        if (validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {\n\n            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);\n            if (extraHeaders != null) {\n                for (Map.Entry<String, String> entry : extraHeaders.entrySet())\n                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());\n            }\n\n            return new ProgressiveMediaSource.Factory(sourceFactory)\n                    .createMediaSource(uri);\n\n        } else if (!validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {\n            return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))\n                    .createMediaSource(uri);\n\n        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_HLS)) {\n            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);\n            if (extraHeaders != null) {\n                for (Map.Entry<String, String> entry : extraHeaders.entrySet())\n                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());\n            }\n\n            return new HlsMediaSource.Factory(sourceFactory)\n                    .createMediaSource(uri);\n\n        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)) {\n\n            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);\n            if (extraHeaders != null) {\n                for (Map.Entry<String, String> entry : extraHeaders.entrySet())\n                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());\n            }\n\n            return new ProgressiveMediaSource.Factory(sourceFactory)\n                    .createMediaSource(uri);\n\n        } else {\n            DefaultDashChunkSource.Factory dashChunkSourceFactory = new DefaultDashChunkSource.Factory(new DefaultHttpDataSourceFactory(\"ua\", new DefaultBandwidthMeter()));\n            DefaultHttpDataSourceFactory manifestDataSourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);\n            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory)\n                    .createMediaSource(uri);\n\n        }\n    }\n\n    private void releasePlayer() {\n        if (simpleExoPlayer != null) {\n            playbackPosition = simpleExoPlayer.getCurrentPosition();\n            currentWindow = simpleExoPlayer.getCurrentWindowIndex();\n            currPlayWhenReady = simpleExoPlayer.getPlayWhenReady();\n            simpleExoPlayer.removeListener(componentListener);\n            simpleExoPlayer.release();\n            simpleExoPlayer = null;\n        }\n    }\n\n    public void setPlayWhenReady(boolean playWhenReady) {\n        this.currPlayWhenReady = playWhenReady;\n        if (simpleExoPlayer != null)\n            simpleExoPlayer.setPlayWhenReady(playWhenReady);\n    }\n\n    public void stopPlayer() {\n        if (simpleExoPlayer != null)\n            simpleExoPlayer.stop();\n    }\n\n    public void pausePlayer() {\n        if (simpleExoPlayer != null)\n            simpleExoPlayer.setPlayWhenReady(false);\n    }\n\n    public void setShowController(boolean showController) {\n        if (playerView == null)\n            return;\n\n        if (showController) {\n            playerView.showController();\n            playerView.setUseController(true);\n        } else {\n            playerView.hideController();\n            playerView.setUseController(false);\n        }\n    }\n\n    public void setResizeMode(EnumResizeMode resizeMode) {\n        switch (resizeMode) {\n\n            case FIT:\n                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);\n                break;\n\n            case FILL:\n                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);\n                break;\n\n            case ZOOM:\n                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_ZOOM);\n                break;\n\n            default:\n                playerView.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FIT);\n        }\n    }\n\n    public void setShowFullScreen(boolean showFullScreen) {\n        if (showFullScreen)\n            frameLayoutFullScreenContainer.setVisibility(VISIBLE);\n        else\n            frameLayoutFullScreenContainer.setVisibility(GONE);\n    }\n\n    public void setAspectRatio(EnumAspectRatio aspectRatio) {\n        this.currAspectRatio = aspectRatio;\n        int value = PublicFunctions.getScreenWidth();\n\n        switch (aspectRatio) {\n\n            case ASPECT_1_1:\n                playerView.setLayoutParams(new FrameLayout.LayoutParams(value, value));\n                break;\n\n            case ASPECT_4_3:\n                playerView.setLayoutParams(new FrameLayout.LayoutParams(value, (3 * value) / 4));\n                break;\n\n            case ASPECT_16_9:\n                playerView.setLayoutParams(new FrameLayout.LayoutParams(value, (9 * value) / 16));\n                break;\n\n            case ASPECT_MATCH:\n                playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));\n                break;\n\n            case ASPECT_MP3:\n                playerView.setControllerShowTimeoutMs(0);\n                playerView.setControllerHideOnTouch(false);\n                int mp3Height = getContext().getResources().getDimensionPixelSize(R.dimen.player_controller_base_height);\n                playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mp3Height));\n                break;\n\n            case UNDEFINE:\n            default:\n                int baseHeight = (int) getResources().getDimension(R.dimen.player_base_height);\n                playerView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight));\n                break;\n        }\n    }\n\n    private void setLoopMode(EnumLoop loopMode) {\n        this.currLoop = loopMode;\n    }\n\n    private Activity getActivity() {\n        Context context = getContext();\n        while (context instanceof ContextWrapper) {\n            if (context instanceof Activity) {\n                return (Activity) context;\n            }\n            context = ((ContextWrapper) context).getBaseContext();\n        }\n        return null;\n    }\n\n    @Override\n    protected void onDetachedFromWindow() {\n        super.onDetachedFromWindow();\n        releasePlayer();\n    }\n\n    @Override\n    protected void onConfigurationChanged(Configuration newConfig) {\n        super.onConfigurationChanged(newConfig);\n\n        // Checking the orientation of the screen\n        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {\n            // First Hide other objects (listview or recyclerview), better hide them using Gone.\n            hideSystemUi();\n            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) playerView.getLayoutParams();\n            params.width = params.MATCH_PARENT;\n            params.height = params.MATCH_PARENT;\n            playerView.setLayoutParams(params);\n        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {\n            // unhide your objects here.\n            showSystemUi();\n            setAspectRatio(currAspectRatio);\n        }\n    }\n\n    @SuppressLint(\"InlinedApi\")\n    private void hideSystemUi() {\n        if (playerView == null)\n            return;\n\n        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE\n                | View.SYSTEM_UI_FLAG_FULLSCREEN\n                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE\n                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY\n                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION\n                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);\n    }\n\n    @SuppressLint(\"InlinedApi\")\n    private void showSystemUi() {\n        if (playerView == null)\n            return;\n\n        playerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);\n    }\n\n    @Override\n    public void onClick(View v) {\n\n        int targetViewId = v.getId();\n        if (targetViewId == R.id.appCompatButton_try_again) {\n            hideRetry();\n            setSource(currSource);\n        } else if (targetViewId == R.id.exo_enter_fullscreen) {\n            enterFullScreen();\n        } else if (targetViewId == R.id.exo_exit_fullscreen) {\n            exitFullScreen();\n        }\n    }\n\n    public void setExoPlayerCallBack(ExoPlayerCallBack exoPlayerCallBack) {\n        this.exoPlayerCallBack = exoPlayerCallBack;\n    }\n\n    private void enterFullScreen() {\n        imageViewExitFullScreen.setVisibility(VISIBLE);\n        imageViewEnterFullScreen.setVisibility(GONE);\n\n        if (getActivity() != null)\n            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);\n    }\n\n    private void exitFullScreen() {\n        imageViewExitFullScreen.setVisibility(GONE);\n        imageViewEnterFullScreen.setVisibility(VISIBLE);\n\n        if (getActivity() != null)\n            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);\n    }\n\n    private void showProgress() {\n        hideAll();\n        if (linearLayoutLoading != null)\n            linearLayoutLoading.setVisibility(VISIBLE);\n    }\n\n    private void hideProgress() {\n        if (linearLayoutLoading != null)\n            linearLayoutLoading.setVisibility(GONE);\n    }\n\n    private void showRetry() {\n        hideAll();\n        if (linearLayoutRetry != null)\n            linearLayoutRetry.setVisibility(VISIBLE);\n    }\n\n    private void hideRetry() {\n        if (linearLayoutRetry != null)\n            linearLayoutRetry.setVisibility(GONE);\n    }\n\n    private void hideAll() {\n        if (linearLayoutRetry != null)\n            linearLayoutRetry.setVisibility(GONE);\n        if (linearLayoutLoading != null)\n            linearLayoutLoading.setVisibility(GONE);\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- library/src/main/java/com/potyvideo/library/AndExoPlayerView.java	(revision 302fb3ca00553893ac2a7f1125b263c6369fa2a1)
++++ library/src/main/java/com/potyvideo/library/AndExoPlayerView.java	(date 1602844055000)
+@@ -22,8 +22,10 @@
+ import androidx.appcompat.widget.AppCompatButton;
+ import androidx.appcompat.widget.AppCompatImageButton;
+ 
++import com.google.android.exoplayer2.C;
+ import com.google.android.exoplayer2.ExoPlaybackException;
+ import com.google.android.exoplayer2.ExoPlayerFactory;
++import com.google.android.exoplayer2.Format;
+ import com.google.android.exoplayer2.PlaybackParameters;
+ import com.google.android.exoplayer2.Player;
+ import com.google.android.exoplayer2.SimpleExoPlayer;
+@@ -31,7 +33,9 @@
+ import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+ import com.google.android.exoplayer2.source.LoopingMediaSource;
+ import com.google.android.exoplayer2.source.MediaSource;
++import com.google.android.exoplayer2.source.MergingMediaSource;
+ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
++import com.google.android.exoplayer2.source.SingleSampleMediaSource;
+ import com.google.android.exoplayer2.source.TrackGroupArray;
+ import com.google.android.exoplayer2.source.dash.DashMediaSource;
+ import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
+@@ -47,6 +51,7 @@
+ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
++import com.google.android.exoplayer2.util.MimeTypes;
+ import com.potyvideo.library.globalEnums.EnumAspectRatio;
+ import com.potyvideo.library.globalEnums.EnumLoop;
+ import com.potyvideo.library.globalEnums.EnumResizeMode;
+@@ -70,6 +75,7 @@
+     private EnumResizeMode currResizeMode = EnumResizeMode.FILL;
+     private EnumAspectRatio currAspectRatio = EnumAspectRatio.ASPECT_16_9;
+     private EnumLoop currLoop = EnumLoop.Finite;
++    private boolean hasSRT = true;
+ 
+     private SimpleExoPlayer simpleExoPlayer;
+     private PlayerView playerView;
+@@ -267,29 +273,11 @@
+     }
+ 
+     public void setSource(String source) {
+-        MediaSource mediaSource = buildMediaSource(source, null);
+-        if (mediaSource != null) {
+-            if (simpleExoPlayer != null) {
+-                showProgress();
+-
+-                switch (currLoop) {
+-                    case INFINITE: {
+-                        LoopingMediaSource loopingSource = new LoopingMediaSource(mediaSource);
+-                        simpleExoPlayer.prepare(loopingSource, true, false);
+-                        break;
+-                    }
+-
+-                    case Finite:
+-                    default: {
+-                        simpleExoPlayer.prepare(mediaSource, true, false);
+-                        break;
+-                    }
+-                }
+-            }
+-        }
++        setSource(source, null);
+     }
+ 
+     public void setSource(String source, HashMap<String, String> extraHeaders) {
++
+         MediaSource mediaSource = buildMediaSource(source, extraHeaders);
+         if (mediaSource != null) {
+             if (simpleExoPlayer != null) {
+@@ -337,8 +325,7 @@
+                     sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+             }
+ 
+-            return new ProgressiveMediaSource.Factory(sourceFactory)
+-                    .createMediaSource(uri);
++            return new ProgressiveMediaSource.Factory(sourceFactory).createMediaSource(uri);
+ 
+         } else if (!validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+             return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
+@@ -351,8 +338,7 @@
+                     sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+             }
+ 
+-            return new HlsMediaSource.Factory(sourceFactory)
+-                    .createMediaSource(uri);
++            return new HlsMediaSource.Factory(sourceFactory).createMediaSource(uri);
+ 
+         } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)) {
+ 
+@@ -362,17 +348,28 @@
+                     sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+             }
+ 
+-            return new ProgressiveMediaSource.Factory(sourceFactory)
+-                    .createMediaSource(uri);
++            return new ProgressiveMediaSource.Factory(sourceFactory).createMediaSource(uri);
+ 
+         } else {
+             DefaultDashChunkSource.Factory dashChunkSourceFactory = new DefaultDashChunkSource.Factory(new DefaultHttpDataSourceFactory("ua", new DefaultBandwidthMeter()));
+             DefaultHttpDataSourceFactory manifestDataSourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
+-            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory)
+-                    .createMediaSource(uri);
+ 
++            return new DashMediaSource.Factory(dashChunkSourceFactory, manifestDataSourceFactory).createMediaSource(uri);
+         }
+     }
++
++    private MergingMediaSource buildSRTMediaSource(DefaultHttpDataSourceFactory dataSourceFactory, MediaSource videoSource) {
++
++        Uri srtUri = Uri.parse("http://www.storiesinflight.com/js_videosub/jellies.srt");
++
++        Format textFormat = Format.createTextSampleFormat(null, MimeTypes.APPLICATION_SUBRIP,
++                null, Format.NO_VALUE, Format.NO_VALUE, "en", null, Format.OFFSET_SAMPLE_RELATIVE);
++        MediaSource textMediaSource = new SingleSampleMediaSource.Factory(dataSourceFactory)
++                .createMediaSource(srtUri, textFormat, C.TIME_UNSET);
++
++        return new MergingMediaSource(videoSource, textMediaSource);
++
++    }
+ 
+     private void releasePlayer() {
+         if (simpleExoPlayer != null) {
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"testRunner\" value=\"PLATFORM\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n            <option value=\"$PROJECT_DIR$/library\" />\n          </set>\n        </option>\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 302fb3ca00553893ac2a7f1125b263c6369fa2a1)
++++ .idea/gradle.xml	(date 1616573659000)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 302fb3ca00553893ac2a7f1125b263c6369fa2a1)
++++ .idea/misc.xml	(date 1616573820000)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1616573820000)
++++ .idea/compiler.xml	(date 1616573820000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="1.8" />
++  </component>
++</project>
+\ No newline at end of file
