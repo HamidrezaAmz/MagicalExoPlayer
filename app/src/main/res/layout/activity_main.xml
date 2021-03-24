@@ -35,7 +35,7 @@
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/yellow"
             android:text="PLAY MP4" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -53,6 +53,14 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
             android:text="PLAY MP3" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ogg"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="PLAY OGG" />
 
         <TextView
             android:layout_width="match_parent"

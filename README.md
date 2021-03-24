@@ -32,7 +32,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.14'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.16'
 }
 ```
 
@@ -70,6 +70,7 @@ Or
 | `andexo_play_when_ready` | Player Start Playing On Stream Is Ready **True**,**False** |
 | `andexo_aspect_ratio` | In Order To Get The Desired Playerr Size, You Can Pass The Aspect Ratios You Need **ASPECT_1_1**, **ASPECT_16_9**, **ASPECT_4_3**, **ASPECT_MATCH**, **ASPECT_MP3** |
 | `andexo_show_controller` | Show Or Hide Player Controller **True**,**False** |
+| `andexo_loop` | Play video with loop modes **Infinite**,**Finite** |
 
 
 ## XML With Custom Attrs.
@@ -119,7 +120,16 @@ For example your activity with be something like this
 * [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player - Version 2.10.3
 
 
+***
 
-## Author
+## :heart: Support My Projects 
+However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it. :coffee: :hamburger: :fries: :apple:
 
-* **Hamidreza amoozadeh** - *Android DEV* - [github](https://github.com/HamidrezaAmz)
+* Starring: You may give a star or share the projects you like.
+* Bitcoin: You can send me bitcoins at this address (or scanning the code below):
+
+`16cAkXGQRjx6xLH4CCN5wyWaVDQH2pzyVu`
+
+![qrcode](https://user-images.githubusercontent.com/13493645/106135812-ab704500-617d-11eb-9713-1baeba1ed5fc.png)
+
+

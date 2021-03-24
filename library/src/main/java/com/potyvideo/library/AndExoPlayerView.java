@@ -29,6 +29,7 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
+import com.google.android.exoplayer2.extractor.ogg.OggExtractor;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -329,7 +330,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             return null;
         }
 
-        if (validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+        if (validUrl && (uri.getLastPathSegment().contains(PublicValues.KEY_MP4) || uri.getLastPathSegment().contains(PublicValues.KEY_MP4_CAPS))) {
 
             DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
             if (extraHeaders != null) {
@@ -340,7 +341,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             return new ProgressiveMediaSource.Factory(sourceFactory)
                     .createMediaSource(uri);
 
-        } else if (!validUrl && uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) {
+        } else if (!validUrl && (uri.getLastPathSegment().contains(PublicValues.KEY_MP4)) || uri.getLastPathSegment().contains(PublicValues.KEY_MP4_CAPS)) {
             return new ProgressiveMediaSource.Factory(new DefaultDataSourceFactory(context, PublicValues.KEY_USER_AGENT))
                     .createMediaSource(uri);
 
@@ -354,7 +355,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             return new HlsMediaSource.Factory(sourceFactory)
                     .createMediaSource(uri);
 
-        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)) {
+        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_MP3)){
 
             DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
             if (extraHeaders != null) {
@@ -363,6 +364,17 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
             }
 
             return new ProgressiveMediaSource.Factory(sourceFactory)
+                    .createMediaSource(uri);
+
+        } else if (uri.getLastPathSegment().contains(PublicValues.KEY_OGG)){
+
+            DefaultHttpDataSourceFactory sourceFactory = new DefaultHttpDataSourceFactory(PublicValues.KEY_USER_AGENT);
+            if (extraHeaders != null) {
+                for (Map.Entry<String, String> entry : extraHeaders.entrySet())
+                    sourceFactory.getDefaultRequestProperties().set(entry.getKey(), entry.getValue());
+            }
+
+            return new ProgressiveMediaSource.Factory(sourceFactory, OggExtractor.FACTORY)
                     .createMediaSource(uri);
 
         } else {
@@ -603,3 +615,4 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
     }
 
 }
+
