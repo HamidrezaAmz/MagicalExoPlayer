@@ -8,6 +8,7 @@
     <color name="red">#FF0000</color>
     <color name="silver">#C0C0C0</color>
     <color name="gray">#A3A2A2</color>
+    <color name="grayDark">#3A3939</color>
     <color name="olive">#808000</color>
     <color name="purple">#800080</color>
     <color name="maroon">#800000</color>
@@ -19,7 +20,10 @@
     <color name="navy">#000080</color>
     <color name="black">#000000</color>
     <color name="blackTransparent">#07DDDDDD</color>
+    <color name="blackTransparentV2">#708A8A8A</color>
     <color name="toolbarTransparent">#95000000</color>
     <color name="divider">#C0BEBE</color>
+    <color name="playerColor">#E8263238</color>
+    <color name="playerColorDark">#141B1E</color>
 
 </resources>

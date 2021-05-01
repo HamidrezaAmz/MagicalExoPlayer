@@ -22,10 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageButton;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -33,16 +31,12 @@ import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.extractor.ExtractorsFactory;
 import com.google.android.exoplayer2.source.LoopingMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.MergingMediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.source.SingleSampleMediaSource;
 import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.dash.DashMediaSource;
 import com.google.android.exoplayer2.source.dash.DefaultDashChunkSource;
 import com.google.android.exoplayer2.source.hls.HlsMediaSource;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
@@ -51,7 +45,6 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.MimeTypes;
 import com.potyvideo.library.globalEnums.EnumAspectRatio;
 import com.potyvideo.library.globalEnums.EnumLoop;
 import com.potyvideo.library.globalEnums.EnumResizeMode;
@@ -63,8 +56,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AndExoPlayerView extends LinearLayout implements View.OnClickListener {
-
-    // here we go to new branch
 
     private Context context;
     private String currSource = "";
@@ -89,7 +80,6 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
     private BandwidthMeter bandwidthMeter;
     private ExtractorsFactory extractorsFactory;
-    private TrackSelection.Factory trackSelectionFactory;
     private TrackSelector trackSelector;
 
     private ExoPlayerCallBack exoPlayerCallBack;
@@ -262,7 +252,6 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
 
             bandwidthMeter = new DefaultBandwidthMeter();
             extractorsFactory = new DefaultExtractorsFactory();
-            trackSelectionFactory = new AdaptiveTrackSelection.Factory();
             trackSelector = new DefaultTrackSelector();
 
             simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
@@ -360,6 +349,7 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
         }
     }
 
+    /*
     private MergingMediaSource buildSRTMediaSource(DefaultHttpDataSourceFactory dataSourceFactory, MediaSource videoSource) {
 
         Uri srtUri = Uri.parse("http://www.storiesinflight.com/js_videosub/jellies.srt");
@@ -370,8 +360,8 @@ public class AndExoPlayerView extends LinearLayout implements View.OnClickListen
                 .createMediaSource(srtUri, textFormat, C.TIME_UNSET);
 
         return new MergingMediaSource(videoSource, textMediaSource);
-
     }
+    */
 
     private void releasePlayer() {
         if (simpleExoPlayer != null) {

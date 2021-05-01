@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Magical ExoPlayer</string>
-    <string name="title_retry">Try Again!</string>
+    <string name="title_retry">Retry</string>
 </resources>
