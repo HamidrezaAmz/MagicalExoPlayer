@@ -59,32 +59,9 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
         unMute = playerView.findViewById(R.id.exo_unmute)
         settingContainer = playerView.findViewById(R.id.container_setting)
 
-        // extract attrs
-        extractAttrs(attributeSet)
-
         // listeners
         initListeners()
 
-    }
-
-    private fun extractAttrs(attributeSet: AttributeSet?) {
-
-        attributeSet.let {
-            val attributes: TypedArray = context.obtainStyledAttributes(it, R.styleable.AndExoPlayerView)
-            if (attributes.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
-                val aspectRatio = attributes.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.value)
-                setAspectRatio(EnumAspectRatio[aspectRatio])
-            }
-
-            attributes.recycle()
-        }
-
-        /*
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.BenefitView)
-        imageView.setImageDrawable(attributes.getDrawable(R.styleable.BenefitView_image))
-        textView.text = attributes.getString(R.styleable.BenefitView_text)
-        attributes.recycle()
-        */
     }
 
     private fun initListeners() {
@@ -134,40 +111,6 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
     protected fun showMuteButton() {
         mute.visibility = VISIBLE
         unMute.visibility = GONE
-    }
-
-    protected fun setAspectRatio(aspectRatio: EnumAspectRatio) {
-        this.currAspectRatio = aspectRatio
-        val value = PublicFunctions.getScreenWidth()
-        when (aspectRatio) {
-            EnumAspectRatio.ASPECT_1_1 -> playerView.layoutParams = FrameLayout.LayoutParams(value, value)
-            EnumAspectRatio.ASPECT_4_3 -> playerView.layoutParams = FrameLayout.LayoutParams(value, 3 * value / 4)
-            EnumAspectRatio.ASPECT_16_9 -> playerView.layoutParams = FrameLayout.LayoutParams(value, 9 * value / 16)
-            EnumAspectRatio.ASPECT_MATCH -> playerView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-            EnumAspectRatio.ASPECT_MP3 -> {
-                playerView.controllerShowTimeoutMs = 0
-                playerView.controllerHideOnTouch = false
-                val mp3Height = context.resources.getDimensionPixelSize(R.dimen.player_controller_base_height)
-                playerView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mp3Height)
-            }
-            EnumAspectRatio.UNDEFINE -> {
-                val baseHeight = resources.getDimension(R.dimen.player_base_height).toInt()
-                playerView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight)
-            }
-        }
-    }
-
-    protected fun setRepeatMode(repeatMode: EnumRepeatMode) {
-        this.currRepeatMode = repeatMode
-    }
-
-    protected fun setResizeMode(resizeMode: EnumResizeMode) {
-        when (resizeMode) {
-            EnumResizeMode.FIT -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-            EnumResizeMode.FILL -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-            EnumResizeMode.ZOOM -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-            else -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-        }
     }
 
     protected fun setShowSetting(showSetting: Boolean = false) {

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.potyvideo.library.kotlin.AndExoPlayerView
+import com.potyvideo.library.kotlin.globalEnums.EnumResizeMode
 import com.potyvideo.library.kotlin.globalInterfaces.AndExoPlayerListener
 import com.potyvideo.library.kotlin.utils.PublicValues
 import com.potyvideo.library.utils.PathUtil
@@ -25,7 +26,7 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
 
         // andExoPlayerView.setSource(videoURL)
         // andExoPlayerView.setShowTimeOut(0) // disable hide controller
-        andExoPlayerView.setResizeMode() // sync with attrs
+        andExoPlayerView.setResizeMode(EnumResizeMode.ZOOM) // sync with attrs
         andExoPlayerView.setAndExoPlayerListener(this)
 
         findViewById<AppCompatButton>(R.id.local).setOnClickListener(this)
@@ -34,9 +35,6 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
         findViewById<AppCompatButton>(R.id.stream_dash).setOnClickListener(this)
         findViewById<AppCompatButton>(R.id.stream_mkv).setOnClickListener(this)
 
-        // player controller view model
-        // val playerControllerViewModel = ViewModelProvider(this@MainActivityKotlin)[PlayerControllerViewModel::class.java]
-        // andExoPlayerView.setPlayerControllerViewModel(playerControllerViewModel)
     }
 
     override fun onExoPlayerError(errorMessage: String?) {
@@ -48,7 +46,7 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
                 selectLocaleVideo()
             }
             R.id.stream_mp4 -> {
-                loadMP4Stream(PublicValues.TEST_URL_MP4_V4)
+                loadMP4Stream(PublicValues.TEST_URL_MP4_V5)
             }
             R.id.stream_hls -> {
                 loadHLSStream(PublicValues.TEST_URL_HLS)

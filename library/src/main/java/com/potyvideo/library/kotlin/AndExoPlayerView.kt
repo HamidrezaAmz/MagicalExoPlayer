@@ -1,14 +1,20 @@
 package com.potyvideo.library.kotlin
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.util.MimeTypes
+import com.potyvideo.library.R
+import com.potyvideo.library.kotlin.globalEnums.EnumAspectRatio
 import com.potyvideo.library.kotlin.globalEnums.EnumRepeatMode
+import com.potyvideo.library.kotlin.globalEnums.EnumResizeMode
 import com.potyvideo.library.kotlin.globalInterfaces.AndExoPlayerListener
 import com.potyvideo.library.kotlin.utils.DoubleClick
 import com.potyvideo.library.kotlin.utils.DoubleClickListener
@@ -60,6 +66,28 @@ class AndExoPlayerView(
 
     init {
         player.addListener(this)
+
+        extractAttrs(attributeSet)
+    }
+
+    private fun extractAttrs(attributeSet: AttributeSet?) {
+
+        attributeSet.let {
+            val attributes: TypedArray = context.obtainStyledAttributes(it, R.styleable.AndExoPlayerView)
+            if (attributes.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
+                val aspectRatio = attributes.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.value)
+                setAspectRatio(EnumAspectRatio[aspectRatio])
+            }
+
+            attributes.recycle()
+        }
+
+        /*
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.BenefitView)
+        imageView.setImageDrawable(attributes.getDrawable(R.styleable.BenefitView_image))
+        textView.text = attributes.getString(R.styleable.BenefitView_text)
+        attributes.recycle()
+        */
     }
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
@@ -186,10 +214,6 @@ class AndExoPlayerView(
             playerView.controllerHideOnTouch = false
     }
 
-    fun setResizeMode() {
-        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
-    }
-
     fun seekBackward(backwardValue: Int = 10000) {
         var seekValue = player.currentPosition - backwardValue
         if (seekValue < 0) seekValue = 0
@@ -217,7 +241,7 @@ class AndExoPlayerView(
         showUnMuteButton()
     }
 
-    fun setLoopMode(repeatModeMode: EnumRepeatMode = EnumRepeatMode.REPEAT_OFF) {
+    fun setRepeatMode(repeatModeMode: EnumRepeatMode = EnumRepeatMode.REPEAT_OFF) {
         when (repeatModeMode) {
             EnumRepeatMode.REPEAT_OFF -> {
                 player.repeatMode = Player.REPEAT_MODE_OFF
@@ -228,6 +252,36 @@ class AndExoPlayerView(
             EnumRepeatMode.REPEAT_ALWAYS -> {
                 player.repeatMode = Player.REPEAT_MODE_ALL
             }
+        }
+    }
+
+    fun setAspectRatio(aspectRatio: EnumAspectRatio) {
+        this.currAspectRatio = aspectRatio
+        val value = com.potyvideo.library.utils.PublicFunctions.getScreenWidth()
+        when (aspectRatio) {
+            EnumAspectRatio.ASPECT_1_1 -> playerView.layoutParams = FrameLayout.LayoutParams(value, value)
+            EnumAspectRatio.ASPECT_4_3 -> playerView.layoutParams = FrameLayout.LayoutParams(value, 3 * value / 4)
+            EnumAspectRatio.ASPECT_16_9 -> playerView.layoutParams = FrameLayout.LayoutParams(value, 9 * value / 16)
+            EnumAspectRatio.ASPECT_MATCH -> playerView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            EnumAspectRatio.ASPECT_MP3 -> {
+                playerView.controllerShowTimeoutMs = 0
+                playerView.controllerHideOnTouch = false
+                val mp3Height = context.resources.getDimensionPixelSize(R.dimen.player_controller_base_height)
+                playerView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mp3Height)
+            }
+            EnumAspectRatio.UNDEFINE -> {
+                val baseHeight = resources.getDimension(R.dimen.player_base_height).toInt()
+                playerView.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, baseHeight)
+            }
+        }
+    }
+
+    fun setResizeMode(resizeMode: EnumResizeMode) {
+        when (resizeMode) {
+            EnumResizeMode.FIT -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
+            EnumResizeMode.FILL -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FILL
+            EnumResizeMode.ZOOM -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+            else -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
         }
     }
 
