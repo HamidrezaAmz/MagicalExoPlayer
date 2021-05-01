@@ -10,4 +10,12 @@ interface AndExoPlayerListener {
 
     fun onExoPlayerError(errorMessage: String?) {}
 
+    fun onExoBuffering() {}
+
+    fun onExoEnded() {}
+
+    fun onExoIdle() {}
+
+    fun onExoReady() {}
+
 }

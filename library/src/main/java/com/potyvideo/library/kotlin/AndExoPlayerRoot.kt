@@ -1,22 +1,18 @@
 package com.potyvideo.library.kotlin
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import com.potyvideo.library.R
 import com.potyvideo.library.kotlin.globalEnums.*
 import com.potyvideo.library.kotlin.utils.DoubleClick
-import com.potyvideo.library.utils.PublicFunctions
 
 
 abstract class AndExoPlayerRoot @JvmOverloads constructor(

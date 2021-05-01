@@ -46,7 +46,7 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
                 selectLocaleVideo()
             }
             R.id.stream_mp4 -> {
-                loadMP4Stream(PublicValues.TEST_URL_MP4_V5)
+                loadMP4Stream(PublicValues.TEST_URL_MP4_V6)
             }
             R.id.stream_hls -> {
                 loadHLSStream(PublicValues.TEST_URL_HLS)

@@ -38,6 +38,7 @@ class PublicValues {
         const val TEST_URL_MP4_V3 = "https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4"
         const val TEST_URL_MP4_V4 = "https://backyard.vaslapp.com/res/036e77f0-a94e-4165-9832-1a8e39c1e089/USER_FILES/6084024b90c61d0001471b0c/1619507956737/file.mp4"
         const val TEST_URL_MP4_V5 = "https://backyard.vaslapp.com/res/036e77f0-a94e-4165-9832-1a8e39c1e089/USER_FILES/6084024b90c61d0001471b0c/1619507956737/file.mp4"
+        const val TEST_URL_MP4_V6 = "https://av.arvanvod.com/YKo7MPRwg0/0rGzR1oPkl/origin_t7pWbw6lZuzYGeEgHdiWOsngBpLnE6rb4pfKAU30.mp4"
 
         const val TEST_URL_HLS = "https://content.jwplatform.com/manifests/yp34SRmf.m3u8"
 

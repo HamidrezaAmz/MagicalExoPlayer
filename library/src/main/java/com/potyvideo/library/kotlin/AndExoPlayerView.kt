@@ -29,7 +29,7 @@ class AndExoPlayerView(
 
     private var player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
     private var andExoPlayerListener: AndExoPlayerListener? = null
-    private var playWhenReady: Boolean = false
+    private var currPlayWhenReady: Boolean = false
     private var playbackPosition: Long = 0
     private var currentWindow: Int = 0
     private var currVolume: Float = 0f
@@ -66,28 +66,32 @@ class AndExoPlayerView(
 
     init {
         player.addListener(this)
-
         extractAttrs(attributeSet)
     }
 
     private fun extractAttrs(attributeSet: AttributeSet?) {
 
         attributeSet.let {
-            val attributes: TypedArray = context.obtainStyledAttributes(it, R.styleable.AndExoPlayerView)
-            if (attributes.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
-                val aspectRatio = attributes.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.value)
+
+            val typedArray: TypedArray = context.obtainStyledAttributes(it, R.styleable.AndExoPlayerView)
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_aspect_ratio)) {
+                val aspectRatio = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_aspect_ratio, EnumAspectRatio.ASPECT_16_9.value)
                 setAspectRatio(EnumAspectRatio[aspectRatio])
             }
 
-            attributes.recycle()
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_resize_mode)) {
+                val resizeMode: Int = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_resize_mode, EnumResizeMode.FILL.value)
+                setResizeMode(EnumResizeMode[resizeMode])
+            }
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_play_when_ready)) {
+                setPlayWhenReady(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_play_when_ready, false))
+            }
+
+            typedArray.recycle()
         }
 
-        /*
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.BenefitView)
-        imageView.setImageDrawable(attributes.getDrawable(R.styleable.BenefitView_image))
-        textView.text = attributes.getString(R.styleable.BenefitView_text)
-        attributes.recycle()
-        */
     }
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
@@ -106,16 +110,16 @@ class AndExoPlayerView(
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {
             ExoPlayer.STATE_BUFFERING -> {
-
+                andExoPlayerListener?.let { andExoPlayerListener!!.onExoBuffering() }
             }
             ExoPlayer.STATE_ENDED -> {
-
+                andExoPlayerListener?.let { andExoPlayerListener!!.onExoEnded() }
             }
             ExoPlayer.STATE_IDLE -> {
-
+                andExoPlayerListener?.let { andExoPlayerListener!!.onExoIdle() }
             }
             ExoPlayer.STATE_READY -> {
-
+                andExoPlayerListener?.let { andExoPlayerListener!!.onExoReady() }
             }
             else -> {
 
@@ -135,10 +139,11 @@ class AndExoPlayerView(
     override fun onTimelineChanged(timeline: Timeline, reason: Int) {
     }
 
-    private fun releasePlayer() {
-        playWhenReady = player.playWhenReady
+    fun releasePlayer() {
+        currPlayWhenReady = player.playWhenReady
         playbackPosition = player.currentPosition
         currentWindow = player.currentWindowIndex
+        player.stop()
         player.release()
     }
 
@@ -192,11 +197,6 @@ class AndExoPlayerView(
 
     fun setSource(source: String) {
 
-        /*if (!PublicFunctions.isThisSourceSupported(source)) {
-            showRetryView("This source is not supported!")
-            return
-        }*/
-
         currSource = source
 
         val mediaItem = buildMediaItem(source)
@@ -241,8 +241,9 @@ class AndExoPlayerView(
         showUnMuteButton()
     }
 
-    fun setRepeatMode(repeatModeMode: EnumRepeatMode = EnumRepeatMode.REPEAT_OFF) {
-        when (repeatModeMode) {
+    fun setRepeatMode(repeatMode: EnumRepeatMode = EnumRepeatMode.REPEAT_OFF) {
+        this.currRepeatMode = repeatMode
+        when (repeatMode) {
             EnumRepeatMode.REPEAT_OFF -> {
                 player.repeatMode = Player.REPEAT_MODE_OFF
             }
@@ -251,6 +252,9 @@ class AndExoPlayerView(
             }
             EnumRepeatMode.REPEAT_ALWAYS -> {
                 player.repeatMode = Player.REPEAT_MODE_ALL
+            }
+            else -> {
+                player.repeatMode = Player.REPEAT_MODE_OFF
             }
         }
     }
@@ -283,6 +287,25 @@ class AndExoPlayerView(
             EnumResizeMode.ZOOM -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
             else -> playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
         }
+    }
+
+    fun setPlayWhenReady(playWhenReady: Boolean = false) {
+        this.currPlayWhenReady = playWhenReady
+        player.playWhenReady = playWhenReady
+    }
+
+    fun pausePlayer() {
+        player.playWhenReady = false
+        player.playbackState
+    }
+
+    fun stopPlayer() {
+        player.stop()
+    }
+
+    fun startPlayer() {
+        player.playWhenReady = true
+        player.playbackState
     }
 
 }
