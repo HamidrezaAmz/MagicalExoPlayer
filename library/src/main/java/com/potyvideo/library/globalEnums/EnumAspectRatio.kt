@@ -1,17 +1,17 @@
-package com.potyvideo.library.kotlin.globalEnums
+package com.potyvideo.library.globalEnums
 
-enum class EnumRepeatMode(var valueStr: String, val value: Int) {
+enum class EnumAspectRatio(var valueStr: String, val value: Int) {
 
-    UNDEFINE("UNDEFINE", -1),
-    INFINITE("Infinite", 1),
-    Finite("Finite", 2),
-    REPEAT_OFF("REPEAT_OFF", 3),
-    REPEAT_ONE("REPEAT_ONE", 4),
-    REPEAT_ALWAYS("REPEAT_ALWAYS", 5);
+    UNDEFINE("UNDEFINE", 0),
+    ASPECT_1_1("ASPECT_1_1", 1),
+    ASPECT_16_9("ASPECT_16_9", 2),
+    ASPECT_4_3("ASPECT_4_3", 3),
+    ASPECT_MATCH("ASPECT_MATCH", 4),
+    ASPECT_MP3("ASPECT_MP3", 5);
 
     companion object {
-
-        operator fun get(value: String?): EnumRepeatMode {
+        
+        operator fun get(value: String?): EnumAspectRatio {
             if (value == null) {
                 return UNDEFINE
             }
@@ -24,7 +24,7 @@ enum class EnumRepeatMode(var valueStr: String, val value: Int) {
             return UNDEFINE
         }
 
-        operator fun get(value: Int?): EnumRepeatMode {
+        operator fun get(value: Int?): EnumAspectRatio {
             if (value == null) {
                 return UNDEFINE
             }

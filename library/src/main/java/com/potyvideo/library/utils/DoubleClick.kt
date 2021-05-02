@@ -1,4 +1,4 @@
-package com.potyvideo.library.kotlin.utils
+package com.potyvideo.library.utils
 
 import android.os.Handler
 import android.view.View

@@ -6,12 +6,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.potyvideo.library.kotlin.AndExoPlayerView
-import com.potyvideo.library.kotlin.globalEnums.EnumResizeMode
-import com.potyvideo.library.kotlin.globalInterfaces.AndExoPlayerListener
-import com.potyvideo.library.kotlin.utils.PublicValues
+import com.potyvideo.library.AndExoPlayerView
+import com.potyvideo.library.globalEnums.EnumResizeMode
+import com.potyvideo.library.globalInterfaces.AndExoPlayerListener
 import com.potyvideo.library.utils.PathUtil
 import com.potyvideo.library.utils.PublicFunctions
+import com.potyvideo.library.utils.PublicValues
 import java.net.URISyntaxException
 
 class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnClickListener {
@@ -24,9 +24,7 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
 
         andExoPlayerView = findViewById(R.id.andExoPlayerView)
 
-        // andExoPlayerView.setSource(videoURL)
-        // andExoPlayerView.setShowTimeOut(0) // disable hide controller
-        andExoPlayerView.setResizeMode(EnumResizeMode.ZOOM) // sync with attrs
+        andExoPlayerView.setResizeMode(EnumResizeMode.FIT) // sync with attrs
         andExoPlayerView.setAndExoPlayerListener(this)
 
         findViewById<AppCompatButton>(R.id.local).setOnClickListener(this)
@@ -46,21 +44,28 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
                 selectLocaleVideo()
             }
             R.id.stream_mp4 -> {
-                loadMP4Stream(PublicValues.TEST_URL_MP4_V6)
+                loadMP4Stream(PublicValues.TEST_URL_MP4)
             }
             R.id.stream_hls -> {
                 loadHLSStream(PublicValues.TEST_URL_HLS)
             }
             R.id.stream_dash -> {
-
+                loadHLSStream(PublicValues.TEST_URL_DASH)
+            }
+            R.id.stream_mkv -> {
+                Toast.makeText(this, "Test Link Not Available", Toast.LENGTH_SHORT).show()
+            }
+            R.id.ogg -> {
+                Toast.makeText(this, "Test Link Not Available", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if (requestCode == PublicValues.request_code_select_video && resultCode == RESULT_OK) {
-            val finalVideoUri = data!!.data
+            val finalVideoUri = data?.data
             var filePath: String? = null
             try {
                 filePath = PathUtil.getPath(this, finalVideoUri)

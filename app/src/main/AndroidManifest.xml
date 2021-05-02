@@ -14,12 +14,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode">
-
-        </activity>
-
         <activity android:name=".MainActivityKotlin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

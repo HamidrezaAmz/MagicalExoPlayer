@@ -1,10 +1,10 @@
-package com.potyvideo.library.kotlin.model
+package com.potyvideo.library.model
 
 import androidx.databinding.BaseObservable
-import com.potyvideo.library.kotlin.globalEnums.EnumAspectRatio
-import com.potyvideo.library.kotlin.globalEnums.EnumRepeatMode
-import com.potyvideo.library.kotlin.globalEnums.EnumPlayerSize
-import com.potyvideo.library.kotlin.globalEnums.EnumResizeMode
+import com.potyvideo.library.globalEnums.EnumAspectRatio
+import com.potyvideo.library.globalEnums.EnumRepeatMode
+import com.potyvideo.library.globalEnums.EnumPlayerSize
+import com.potyvideo.library.globalEnums.EnumResizeMode
 
 class PlayerControllerModel : BaseObservable() {
 

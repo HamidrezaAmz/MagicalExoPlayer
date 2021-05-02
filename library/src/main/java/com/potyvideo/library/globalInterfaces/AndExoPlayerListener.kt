@@ -1,4 +1,4 @@
-package com.potyvideo.library.kotlin.globalInterfaces
+package com.potyvideo.library.globalInterfaces
 
 interface AndExoPlayerListener {
 

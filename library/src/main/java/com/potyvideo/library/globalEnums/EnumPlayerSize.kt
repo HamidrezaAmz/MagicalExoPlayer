@@ -1,14 +1,15 @@
-package com.potyvideo.library.kotlin.globalEnums
+package com.potyvideo.library.globalEnums
 
-enum class EnumMute(var valueStr: String, val value: Int) {
+enum class EnumPlayerSize(var valueStr: String, val value: Int) {
 
     UNDEFINE("UNDEFINE", -1),
-    MUTE("mute", 1),
-    UNMUTE("unmute", 2);
+    EXACTLY("EXACTLY", 0),
+    AT_MOST("AT_MOST", 1),
+    UNSPECIFIED("UNSPECIFIED", 2);
 
     companion object {
 
-        operator fun get(value: String?): EnumMute {
+        operator fun get(value: String?): EnumPlayerSize {
             if (value == null) {
                 return UNDEFINE
             }
@@ -21,7 +22,7 @@ enum class EnumMute(var valueStr: String, val value: Int) {
             return UNDEFINE
         }
 
-        operator fun get(value: Int?): EnumMute {
+        operator fun get(value: Int?): EnumPlayerSize {
             if (value == null) {
                 return UNDEFINE
             }

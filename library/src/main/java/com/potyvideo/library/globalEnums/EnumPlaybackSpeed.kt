@@ -1,15 +1,19 @@
-package com.potyvideo.library.kotlin.globalEnums
+package com.potyvideo.library.globalEnums
 
-enum class EnumPlayerSize(var valueStr: String, val value: Int) {
+enum class EnumPlaybackSpeed(var valueStr: String, val value: Int) {
 
     UNDEFINE("UNDEFINE", -1),
-    EXACTLY("EXACTLY", 0),
-    AT_MOST("AT_MOST", 1),
-    UNSPECIFIED("UNSPECIFIED", 2);
+    PLUS_ONE("plus_one", 1),
+    PLUS_FIVE("plus_five", 2),
+
+    NORMAL("normal", 5),
+
+    MINES_ONE("mines_one", 10),
+    MINES_FIVE("mines_five", 11);
 
     companion object {
 
-        operator fun get(value: String?): EnumPlayerSize {
+        operator fun get(value: String?): EnumPlaybackSpeed {
             if (value == null) {
                 return UNDEFINE
             }
@@ -22,7 +26,7 @@ enum class EnumPlayerSize(var valueStr: String, val value: Int) {
             return UNDEFINE
         }
 
-        operator fun get(value: Int?): EnumPlayerSize {
+        operator fun get(value: Int?): EnumPlaybackSpeed {
             if (value == null) {
                 return UNDEFINE
             }

@@ -1,19 +1,17 @@
-package com.potyvideo.library.kotlin.globalEnums
+package com.potyvideo.library.globalEnums
 
-enum class EnumPlaybackSpeed(var valueStr: String, val value: Int) {
+enum class EnumRepeatMode(var valueStr: String, val value: Int) {
 
     UNDEFINE("UNDEFINE", -1),
-    PLUS_ONE("plus_one", 1),
-    PLUS_FIVE("plus_five", 2),
-
-    NORMAL("normal", 5),
-
-    MINES_ONE("mines_one", 10),
-    MINES_FIVE("mines_five", 11);
+    INFINITE("Infinite", 1),
+    Finite("Finite", 2),
+    REPEAT_OFF("REPEAT_OFF", 3),
+    REPEAT_ONE("REPEAT_ONE", 4),
+    REPEAT_ALWAYS("REPEAT_ALWAYS", 5);
 
     companion object {
 
-        operator fun get(value: String?): EnumPlaybackSpeed {
+        operator fun get(value: String?): EnumRepeatMode {
             if (value == null) {
                 return UNDEFINE
             }
@@ -26,7 +24,7 @@ enum class EnumPlaybackSpeed(var valueStr: String, val value: Int) {
             return UNDEFINE
         }
 
-        operator fun get(value: Int?): EnumPlaybackSpeed {
+        operator fun get(value: Int?): EnumRepeatMode {
             if (value == null) {
                 return UNDEFINE
             }

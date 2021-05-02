@@ -1,8 +1,8 @@
-package com.potyvideo.library.kotlin.viewModel
+package com.potyvideo.library.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.potyvideo.library.kotlin.model.PlayerControllerModel
+import com.potyvideo.library.model.PlayerControllerModel
 
 class PlayerControllerViewModel : ViewModel() {
 

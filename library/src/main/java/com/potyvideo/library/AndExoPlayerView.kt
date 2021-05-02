@@ -1,4 +1,4 @@
-package com.potyvideo.library.kotlin
+package com.potyvideo.library
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -11,15 +11,15 @@ import com.google.android.exoplayer2.source.TrackGroupArray
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.util.MimeTypes
-import com.potyvideo.library.R
-import com.potyvideo.library.kotlin.globalEnums.EnumAspectRatio
-import com.potyvideo.library.kotlin.globalEnums.EnumRepeatMode
-import com.potyvideo.library.kotlin.globalEnums.EnumResizeMode
-import com.potyvideo.library.kotlin.globalInterfaces.AndExoPlayerListener
-import com.potyvideo.library.kotlin.utils.DoubleClick
-import com.potyvideo.library.kotlin.utils.DoubleClickListener
-import com.potyvideo.library.kotlin.utils.PublicFunctions
-import com.potyvideo.library.kotlin.utils.PublicValues
+import com.potyvideo.library.globalEnums.EnumAspectRatio
+import com.potyvideo.library.globalEnums.EnumMute
+import com.potyvideo.library.globalEnums.EnumRepeatMode
+import com.potyvideo.library.globalEnums.EnumResizeMode
+import com.potyvideo.library.globalInterfaces.AndExoPlayerListener
+import com.potyvideo.library.utils.DoubleClick
+import com.potyvideo.library.utils.DoubleClickListener
+import com.potyvideo.library.utils.PublicFunctions
+import com.potyvideo.library.utils.PublicValues
 
 class AndExoPlayerView(
         context: Context,
@@ -33,6 +33,7 @@ class AndExoPlayerView(
     private var playbackPosition: Long = 0
     private var currentWindow: Int = 0
     private var currVolume: Float = 0f
+    private var showControllers: Boolean = true
 
     override var customClickListener: DoubleClick
         get() = DoubleClick(object : DoubleClickListener {
@@ -89,9 +90,17 @@ class AndExoPlayerView(
                 setPlayWhenReady(typedArray.getBoolean(R.styleable.AndExoPlayerView_andexo_play_when_ready, false))
             }
 
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_mute)) {
+                val muteValue = typedArray.getInteger(R.styleable.AndExoPlayerView_andexo_mute, EnumMute.UNMUTE.value)
+                setMute(EnumMute[muteValue])
+            }
+
+            if (typedArray.hasValue(R.styleable.AndExoPlayerView_andexo_show_controller)) {
+
+            }
+
             typedArray.recycle()
         }
-
     }
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
@@ -205,13 +214,6 @@ class AndExoPlayerView(
         player.playWhenReady = true
         player.setMediaItem(mediaItem)
         player.prepare()
-
-    }
-
-    fun setShowTimeOut(showTimeoutMs: Int) {
-        playerView.controllerShowTimeoutMs = showTimeoutMs
-        if (showTimeoutMs == 0)
-            playerView.controllerHideOnTouch = false
     }
 
     fun seekBackward(backwardValue: Int = 10000) {
@@ -226,8 +228,31 @@ class AndExoPlayerView(
         player.seekTo(seekValue)
     }
 
-    fun enableControllers(enableControllers: Boolean = true) {
+    fun setShowControllers(showControllers: Boolean = true) {
+        if (showControllers)
+            setShowTimeOut(4000)
+        else
+            setShowTimeOut(0)
+    }
 
+    fun setShowTimeOut(showTimeoutMs: Int) {
+        playerView.controllerShowTimeoutMs = showTimeoutMs
+        if (showTimeoutMs == 0)
+            playerView.controllerHideOnTouch = false
+    }
+
+    fun setMute(mute: EnumMute) {
+        when (mute) {
+            EnumMute.MUTE -> {
+                mutePlayer()
+            }
+            EnumMute.UNMUTE -> {
+                unMutePlayer()
+            }
+            else -> {
+                unMutePlayer()
+            }
+        }
     }
 
     fun mutePlayer() {
@@ -261,7 +286,7 @@ class AndExoPlayerView(
 
     fun setAspectRatio(aspectRatio: EnumAspectRatio) {
         this.currAspectRatio = aspectRatio
-        val value = com.potyvideo.library.utils.PublicFunctions.getScreenWidth()
+        val value = PublicFunctions.getScreenWidth()
         when (aspectRatio) {
             EnumAspectRatio.ASPECT_1_1 -> playerView.layoutParams = FrameLayout.LayoutParams(value, value)
             EnumAspectRatio.ASPECT_4_3 -> playerView.layoutParams = FrameLayout.LayoutParams(value, 3 * value / 4)
@@ -301,6 +326,7 @@ class AndExoPlayerView(
 
     fun stopPlayer() {
         player.stop()
+        player.playbackState
     }
 
     fun startPlayer() {

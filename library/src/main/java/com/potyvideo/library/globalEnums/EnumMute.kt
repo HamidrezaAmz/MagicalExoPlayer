@@ -1,19 +1,17 @@
-package com.potyvideo.library.kotlin.globalEnums
+package com.potyvideo.library.globalEnums
 
-enum class EnumResizeMode(var valueStr: String, val value: Int) {
+enum class EnumMute(var valueStr: String, val value: Int) {
 
     UNDEFINE("UNDEFINE", -1),
-    FIT("Fit", 1),
-    FILL("Fill", 2),
-    ZOOM("Zoom", 3);
+    MUTE("mute", 1),
+    UNMUTE("unmute", 2);
 
     companion object {
 
-        operator fun get(value: String?): EnumResizeMode {
-
-            if (value == null)
+        operator fun get(value: String): EnumMute {
+            if (value == null) {
                 return UNDEFINE
-
+            }
             val `arr$` = values()
             for (`val` in `arr$`) {
                 if (`val`.valueStr.equals(value.trim { it <= ' ' }, ignoreCase = true)) {
@@ -23,11 +21,10 @@ enum class EnumResizeMode(var valueStr: String, val value: Int) {
             return UNDEFINE
         }
 
-        operator fun get(value: Int?): EnumResizeMode {
-
-            if (value == null)
+        operator fun get(value: Int): EnumMute {
+            if (value == null) {
                 return UNDEFINE
-
+            }
             val `arr$` = values()
             for (`val` in `arr$`) {
                 if (`val`.value === value) {

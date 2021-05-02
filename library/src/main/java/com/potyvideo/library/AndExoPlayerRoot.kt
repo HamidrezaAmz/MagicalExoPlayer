@@ -1,4 +1,4 @@
-package com.potyvideo.library.kotlin
+package com.potyvideo.library
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,9 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import com.google.android.exoplayer2.ui.PlayerView
-import com.potyvideo.library.R
-import com.potyvideo.library.kotlin.globalEnums.*
-import com.potyvideo.library.kotlin.utils.DoubleClick
+import com.potyvideo.library.globalEnums.*
+import com.potyvideo.library.utils.DoubleClick
 
 
 abstract class AndExoPlayerRoot @JvmOverloads constructor(

@@ -1,20 +1,19 @@
-package com.potyvideo.library.kotlin.globalEnums
+package com.potyvideo.library.globalEnums
 
-enum class EnumAspectRatio(var valueStr: String, val value: Int) {
+enum class EnumResizeMode(var valueStr: String, val value: Int) {
 
-    UNDEFINE("UNDEFINE", 0),
-    ASPECT_1_1("ASPECT_1_1", 1),
-    ASPECT_16_9("ASPECT_16_9", 2),
-    ASPECT_4_3("ASPECT_4_3", 3),
-    ASPECT_MATCH("ASPECT_MATCH", 4),
-    ASPECT_MP3("ASPECT_MP3", 5);
+    UNDEFINE("UNDEFINE", -1),
+    FIT("Fit", 1),
+    FILL("Fill", 2),
+    ZOOM("Zoom", 3);
 
     companion object {
-        
-        operator fun get(value: String?): EnumAspectRatio {
-            if (value == null) {
+
+        operator fun get(value: String?): EnumResizeMode {
+
+            if (value == null)
                 return UNDEFINE
-            }
+
             val `arr$` = values()
             for (`val` in `arr$`) {
                 if (`val`.valueStr.equals(value.trim { it <= ' ' }, ignoreCase = true)) {
@@ -24,10 +23,11 @@ enum class EnumAspectRatio(var valueStr: String, val value: Int) {
             return UNDEFINE
         }
 
-        operator fun get(value: Int?): EnumAspectRatio {
-            if (value == null) {
+        operator fun get(value: Int?): EnumResizeMode {
+
+            if (value == null)
                 return UNDEFINE
-            }
+
             val `arr$` = values()
             for (`val` in `arr$`) {
                 if (`val`.value === value) {
