@@ -1,6 +1,7 @@
 ![GitHub](https://img.shields.io/github/license/hamidrezaamz/MagicalExoPlayer)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
 [![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
+[![](https://jitpack.io/v/jitpack/maven-simple/month.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
 
 # UPDATE
 New version (2.0.XXX) is based on **Kotlin** ;)
