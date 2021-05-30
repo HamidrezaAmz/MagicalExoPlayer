@@ -13,7 +13,6 @@ import com.google.android.exoplayer2.ui.PlayerView
 import com.potyvideo.library.globalEnums.*
 import com.potyvideo.library.utils.DoubleClick
 
-
 abstract class AndExoPlayerRoot @JvmOverloads constructor(
         context: Context,
         attributeSet: AttributeSet? = null,
@@ -31,6 +30,9 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
     var mute: AppCompatImageButton
     var unMute: AppCompatImageButton
     var settingContainer: FrameLayout
+    var fullScreenContainer: FrameLayout
+    var enterFullScreen: AppCompatImageButton
+    var exitFullScreen: AppCompatImageButton
 
     abstract var customClickListener: DoubleClick
 
@@ -40,6 +42,7 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
     var currResizeMode: EnumResizeMode = EnumResizeMode.FILL
     var currMute: EnumMute = EnumMute.UNMUTE
     var currPlaybackSpeed: EnumPlaybackSpeed = EnumPlaybackSpeed.NORMAL
+    var currScreenMode: EnumScreenMode = EnumScreenMode.MINIMISE
 
     init {
 
@@ -53,10 +56,12 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
         mute = playerView.findViewById(R.id.exo_mute)
         unMute = playerView.findViewById(R.id.exo_unmute)
         settingContainer = playerView.findViewById(R.id.container_setting)
+        fullScreenContainer = playerView.findViewById(R.id.container_fullscreen)
+        enterFullScreen = playerView.findViewById(R.id.exo_enter_fullscreen)
+        exitFullScreen = playerView.findViewById(R.id.exo_exit_fullscreen)
 
         // listeners
         initListeners()
-
     }
 
     private fun initListeners() {
@@ -65,6 +70,9 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
         forwardView.setOnClickListener(customClickListener)
         mute.setOnClickListener(customClickListener)
         unMute.setOnClickListener(customClickListener)
+        fullScreenContainer.setOnClickListener(customClickListener)
+        enterFullScreen.setOnClickListener(customClickListener)
+        exitFullScreen.setOnClickListener(customClickListener)
     }
 
     protected fun showRetryView() {
@@ -73,7 +81,6 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
 
     protected fun showRetryView(retryTitle: String?) {
         retryView.visibility = VISIBLE
-
         if (retryTitle != null)
             retryViewTitle.text = retryTitle
     }
@@ -88,6 +95,13 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
 
     protected fun hideLoading() {
         hideRetryView()
+    }
+
+    protected fun setShowController(showController: Boolean = true) {
+        if (showController)
+            showController()
+        else
+            hideController()
     }
 
     protected fun showController() {
@@ -108,11 +122,51 @@ abstract class AndExoPlayerRoot @JvmOverloads constructor(
         unMute.visibility = GONE
     }
 
-    protected fun setShowSetting(showSetting: Boolean = false) {
+    protected fun setShowSettingButton(showSetting: Boolean = false) {
         if (showSetting)
             settingContainer.visibility = VISIBLE
         else
             settingContainer.visibility = GONE
+    }
+
+    protected fun setShowFullScreenButton(showFullscreenButton: Boolean = false) {
+        if (showFullscreenButton)
+            fullScreenContainer.visibility = VISIBLE
+        else
+            fullScreenContainer.visibility = GONE
+    }
+
+    protected fun setShowScreenModeButton(screenMode: EnumScreenMode = EnumScreenMode.MINIMISE) {
+        when (screenMode) {
+            EnumScreenMode.FULLSCREEN -> {
+                enterFullScreen.visibility = GONE
+                exitFullScreen.visibility = VISIBLE
+            }
+            EnumScreenMode.MINIMISE -> {
+                enterFullScreen.visibility = VISIBLE
+                exitFullScreen.visibility = GONE
+            }
+            else -> {
+                enterFullScreen.visibility = VISIBLE
+                exitFullScreen.visibility = GONE
+            }
+        }
+    }
+
+    protected fun showSystemUI() {
+        playerView.systemUiVisibility = (SYSTEM_UI_FLAG_LOW_PROFILE
+                or SYSTEM_UI_FLAG_IMMERSIVE
+                or SYSTEM_UI_FLAG_FULLSCREEN
+                or SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+    }
+
+    protected fun hideSystemUI() {
+        playerView.systemUiVisibility = (SYSTEM_UI_FLAG_LOW_PROFILE
+                or SYSTEM_UI_FLAG_LAYOUT_STABLE)
     }
 
 }
