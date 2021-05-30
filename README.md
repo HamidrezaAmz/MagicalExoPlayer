@@ -35,7 +35,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:2.0.6'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:X.X.X'
 }
 ```
 
