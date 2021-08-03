@@ -132,8 +132,6 @@ However, if you get some profit from this or just want to encourage me to contin
 * Starring: You may give a star or share the projects you like.
 * Bitcoin: You can send me bitcoins at this address (or scanning the code below):
 
-`16cAkXGQRjx6xLH4CCN5wyWaVDQH2pzyVu`
-
-![qrcode](https://user-images.githubusercontent.com/13493645/106135812-ab704500-617d-11eb-9713-1baeba1ed5fc.png)
+``
 
 
