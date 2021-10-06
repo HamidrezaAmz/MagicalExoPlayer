@@ -1,6 +1,10 @@
 ![GitHub](https://img.shields.io/github/license/hamidrezaamz/MagicalExoPlayer)
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
 [![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
+[![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer/month.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
+
+# UPDATE
+New version (2.0.XXX) is based on **Kotlin** ;)
 
 # MagicalExoPlayer
 The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS**, **DASH**  And **MP3**. 
@@ -32,7 +36,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:1.0.14'
+    implementation 'com.github.HamidrezaAmz:MagicalExoPlayer:X.X.X'
 }
 ```
 
@@ -70,6 +74,7 @@ Or
 | `andexo_play_when_ready` | Player Start Playing On Stream Is Ready **True**,**False** |
 | `andexo_aspect_ratio` | In Order To Get The Desired Playerr Size, You Can Pass The Aspect Ratios You Need **ASPECT_1_1**, **ASPECT_16_9**, **ASPECT_4_3**, **ASPECT_MATCH**, **ASPECT_MP3** |
 | `andexo_show_controller` | Show Or Hide Player Controller **True**,**False** |
+| `andexo_loop` | Play video with loop modes **Infinite**,**Finite** |
 
 
 ## XML With Custom Attrs.
@@ -119,7 +124,11 @@ For example your activity with be something like this
 * [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player - Version 2.10.3
 
 
+***
 
-## Author
+## :heart: Support My Projects 
+However, if you get some profit from this or just want to encourage me to continue creating stuff, there are few ways you can do it. :coffee: :hamburger: :fries: :apple:
 
-* **Hamidreza amoozadeh** - *Android DEV* - [github](https://github.com/HamidrezaAmz)
+* Starring: You may give a star or share the projects you like.
+
+

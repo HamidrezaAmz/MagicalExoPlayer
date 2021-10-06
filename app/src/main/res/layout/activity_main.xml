@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         app:andexo_aspect_ratio="aspect_16_9"
         app:andexo_full_screen="true"
+        app:andexo_loop="finite"
         app:andexo_play_when_ready="true"
         app:andexo_resize_mode="Fit"
         app:andexo_show_controller="true" />
@@ -34,7 +35,7 @@
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/yellow"
             android:text="PLAY MP4" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -52,6 +53,14 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
             android:text="PLAY MP3" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/ogg"
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="PLAY OGG" />
 
         <TextView
             android:layout_width="match_parent"

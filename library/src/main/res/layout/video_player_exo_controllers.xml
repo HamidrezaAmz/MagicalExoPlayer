@@ -54,6 +54,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:fontFamily="@font/app_font"
             android:gravity="center"
             android:padding="5dp"
             android:text="00:00:00"
@@ -68,7 +69,8 @@
             android:layout_toStartOf="@id/exo_duration"
             android:layout_toLeftOf="@id/exo_duration"
             android:layout_toEndOf="@id/exo_position"
-            android:layout_toRightOf="@id/exo_position" />
+            android:layout_toRightOf="@id/exo_position"
+            android:fontFamily="@font/app_font" />
 
     </RelativeLayout>
 
