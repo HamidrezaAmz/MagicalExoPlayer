@@ -60,10 +60,10 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     // Exo Dependencies
-    api "com.google.android.exoplayer:exoplayer:2.13.2"
-    api 'com.google.android.exoplayer:exoplayer-ui:2.13.2'
-    api 'com.google.android.exoplayer:exoplayer-hls:2.13.2'
-    api 'com.google.android.exoplayer:exoplayer-dash:2.13.2'
+    api "com.google.android.exoplayer:exoplayer:2.13.3"
+    api 'com.google.android.exoplayer:exoplayer-ui:2.13.3'
+    api 'com.google.android.exoplayer:exoplayer-hls:2.13.3'
+    api 'com.google.android.exoplayer:exoplayer-dash:2.13.3'
 
 
 }
