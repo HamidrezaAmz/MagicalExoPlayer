@@ -111,24 +111,22 @@ class AndExoPlayerView(
 
     override fun onPlayerError(error: ExoPlaybackException) {
         showRetryView(error.sourceException.message)
-        andExoPlayerListener?.let {
-            andExoPlayerListener!!.onExoPlayerError(errorMessage = error.sourceException.message)
-        }
+        andExoPlayerListener?.onExoPlayerError(error.sourceException.message)
     }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {
             ExoPlayer.STATE_BUFFERING -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoBuffering() }
+                andExoPlayerListener?.onExoBuffering()
             }
             ExoPlayer.STATE_ENDED -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoEnded() }
+                andExoPlayerListener?.onExoEnded()
             }
             ExoPlayer.STATE_IDLE -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoIdle() }
+                andExoPlayerListener?.onExoIdle()
             }
             ExoPlayer.STATE_READY -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoReady() }
+                andExoPlayerListener?.onExoReady()
             }
             else -> {
 
