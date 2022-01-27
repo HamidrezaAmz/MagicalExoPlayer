@@ -24,14 +24,18 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
 
         andExoPlayerView = findViewById(R.id.andExoPlayerView)
 
-        andExoPlayerView.setResizeMode(EnumResizeMode.FIT) // sync with attrs
+        andExoPlayerView.setResizeMode(EnumResizeMode.ZOOM) // sync with attrs
         andExoPlayerView.setAndExoPlayerListener(this)
+        andExoPlayerView.setPlayWhenReady(true)
 
         findViewById<AppCompatButton>(R.id.local).setOnClickListener(this)
         findViewById<AppCompatButton>(R.id.stream_mp4).setOnClickListener(this)
         findViewById<AppCompatButton>(R.id.stream_hls).setOnClickListener(this)
         findViewById<AppCompatButton>(R.id.stream_dash).setOnClickListener(this)
         findViewById<AppCompatButton>(R.id.stream_mkv).setOnClickListener(this)
+
+        // starter stream
+        loadMP4Stream(PublicValues.TEST_URL_MP4_V3)
 
     }
 
@@ -44,7 +48,7 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
                 selectLocaleVideo()
             }
             R.id.stream_mp4 -> {
-                loadMP4Stream(PublicValues.TEST_URL_MP4)
+                loadMP4Stream(PublicValues.TEST_URL_MP4_V3)
             }
             R.id.stream_hls -> {
                 loadHLSStream(PublicValues.TEST_URL_HLS)
@@ -85,7 +89,10 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
             intent.type = "video/*"
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
             intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(Intent.createChooser(intent, "Select Video"), PublicValues.request_code_select_video)
+            startActivityForResult(
+                Intent.createChooser(intent, "Select Video"),
+                PublicValues.request_code_select_video
+            )
         }
     }
 
