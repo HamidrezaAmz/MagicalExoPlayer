@@ -12,7 +12,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 30
-        versionName "3.0.1"
+        versionName "3.0.2"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
 
@@ -73,7 +73,7 @@ afterEvaluate {
 
                 groupId = 'com.github.hamidrezaamz'
                 artifactId = 'MagicalExoPlayer'
-                version = '3.0.1'
+                version = '3.0.2'
             }
         }
     }
