@@ -14,9 +14,9 @@ import com.potyvideo.library.globalEnums.*
 import com.potyvideo.library.utils.DoubleClick
 
 abstract class AndExoPlayerRoot @JvmOverloads constructor(
-        context: Context,
-        attributeSet: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attributeSet, defStyleAttr) {
 
     private var inflatedView: View = inflate(context, R.layout.layout_player_base_kotlin, this)

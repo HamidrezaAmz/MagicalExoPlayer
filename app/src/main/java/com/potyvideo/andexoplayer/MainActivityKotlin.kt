@@ -26,6 +26,7 @@ class MainActivityKotlin : AppCompatActivity(), AndExoPlayerListener, View.OnCli
 
         andExoPlayerView.setResizeMode(EnumResizeMode.ZOOM) // sync with attrs
         andExoPlayerView.setAndExoPlayerListener(this)
+        andExoPlayerView.setPlayWhenReady(true)
 
         findViewById<AppCompatButton>(R.id.local).setOnClickListener(this)
         findViewById<AppCompatButton>(R.id.stream_mp4).setOnClickListener(this)

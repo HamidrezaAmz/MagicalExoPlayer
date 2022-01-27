@@ -26,13 +26,13 @@ import com.potyvideo.library.utils.PublicValues
 class AndExoPlayerView(
     context: Context,
     attributeSet: AttributeSet
-) : AndExoPlayerRoot(context, attributeSet), Player.EventListener {
+) : AndExoPlayerRoot(context, attributeSet), /*Player.EventListener ,*/ Player.Listener {
 
     private lateinit var currSource: String
 
     private var player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
     private var andExoPlayerListener: AndExoPlayerListener? = null
-    private var currPlayWhenReady: Boolean = false
+    private var currPlayWhenReady: Boolean = true
     private var playbackPosition: Long = 0
     private var currentWindow: Int = 0
     private var currVolume: Float = 0f
@@ -105,7 +105,7 @@ class AndExoPlayerView(
                 setPlayWhenReady(
                     typedArray.getBoolean(
                         R.styleable.AndExoPlayerView_andexo_play_when_ready,
-                        false
+                        true
                     )
                 )
             }
@@ -149,26 +149,26 @@ class AndExoPlayerView(
     ) {
     }
 
-    override fun onPlayerError(error: ExoPlaybackException) {
-        showRetryView(error.sourceException.message)
+    override fun onPlayerError(error: PlaybackException) {
+        showRetryView(error.message)
         andExoPlayerListener?.let {
-            andExoPlayerListener!!.onExoPlayerError(errorMessage = error.sourceException.message)
+            andExoPlayerListener!!.onExoPlayerError(errorMessage = error.message)
         }
     }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
         when (playbackState) {
             ExoPlayer.STATE_BUFFERING -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoBuffering() }
+                andExoPlayerListener?.onExoBuffering()
             }
             ExoPlayer.STATE_ENDED -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoEnded() }
+                andExoPlayerListener?.onExoEnded()
             }
             ExoPlayer.STATE_IDLE -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoIdle() }
+                andExoPlayerListener?.onExoIdle()
             }
             ExoPlayer.STATE_READY -> {
-                andExoPlayerListener?.let { andExoPlayerListener!!.onExoReady() }
+                andExoPlayerListener?.onExoReady()
             }
             else -> {
 
@@ -261,7 +261,7 @@ class AndExoPlayerView(
         val mediaItem = buildMediaItem(source, extraHeaders)
 
         playerView.player = player
-        player.playWhenReady = true
+        player.playWhenReady = currPlayWhenReady
         player.setMediaItem(mediaItem)
         player.prepare()
     }
@@ -373,7 +373,7 @@ class AndExoPlayerView(
         }
     }
 
-    fun setPlayWhenReady(playWhenReady: Boolean = false) {
+    fun setPlayWhenReady(playWhenReady: Boolean = true) {
         this.currPlayWhenReady = playWhenReady
         player.playWhenReady = playWhenReady
     }
