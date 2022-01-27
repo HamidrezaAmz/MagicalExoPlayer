@@ -3,9 +3,6 @@
 [![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
 [![](https://jitpack.io/v/HamidrezaAmz/MagicalExoPlayer/month.svg)](https://jitpack.io/#HamidrezaAmz/MagicalExoPlayer)
 
-# UPDATE
-New version (2.0.XXX) is based on **Kotlin** ;)
-
 # MagicalExoPlayer
 The Easiest Way To Play Video Using ExoPlayer In Your Android Application. Add Dependencies Into Your Gadle File, Sync Your Project And Then Just Pass Your Url Or Local Video Address To The Player. MagicalExoPlayer Support **MP4**, **HLS**, **DASH**  And **MP3**. 
 
