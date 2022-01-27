@@ -26,7 +26,7 @@ import com.potyvideo.library.utils.PublicValues
 class AndExoPlayerView(
     context: Context,
     attributeSet: AttributeSet
-) : AndExoPlayerRoot(context, attributeSet), /*Player.EventListener ,*/ Player.Listener {
+) : AndExoPlayerRoot(context, attributeSet), Player.Listener {
 
     private lateinit var currSource: String
 
@@ -409,6 +409,13 @@ class AndExoPlayerView(
 
         currScreenMode = screenMode
         setShowScreenModeButton(currScreenMode)
+    }
+
+    fun getCurrentPlayerPosition(): Long {
+        var currentPosition = 0L
+        if (player.isPlaying)
+            currentPosition = player.currentPosition
+        return currentPosition
     }
 
     fun getActivity(): Activity? {
