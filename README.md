@@ -118,7 +118,7 @@ For example your activity with be something like this
 
 ## Other Libraries
 
-* [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player - Version 2.10.3
+* [ExoPlayer](https://github.com/google/ExoPlayer) - Google Player - Version 2.15.0
 
 
 ***
