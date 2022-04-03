@@ -220,7 +220,7 @@ class AndExoPlayerView(
         return MediaItem.Builder()
             .setUri(source)
             .setMimeType(MimeTypes.APPLICATION_MP4)
-            .setDrmLicenseRequestHeaders(extraHeaders)
+            .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
@@ -228,7 +228,7 @@ class AndExoPlayerView(
         return MediaItem.Builder()
             .setUri(source)
             .setMimeType(MimeTypes.APPLICATION_M3U8)
-            .setDrmLicenseRequestHeaders(extraHeaders)
+            .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
@@ -236,14 +236,14 @@ class AndExoPlayerView(
         return MediaItem.Builder()
             .setUri(source)
             .setMimeType(MimeTypes.APPLICATION_MPD)
-            .setDrmLicenseRequestHeaders(extraHeaders)
+            .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
     private fun buildMediaGlobal(source: String, extraHeaders: HashMap<String, String>): MediaItem {
         return MediaItem.Builder()
             .setUri(source)
-            .setDrmLicenseRequestHeaders(extraHeaders)
+            .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
