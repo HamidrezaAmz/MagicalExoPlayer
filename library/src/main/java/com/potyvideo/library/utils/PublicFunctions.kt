@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.Build
 import android.util.DisplayMetrics
+import android.webkit.MimeTypeMap
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.potyvideo.library.utils.PublicValues.Companion.REQUEST_ID_MULTIPLE_PERMISSIONS
@@ -17,12 +18,22 @@ class PublicFunctions {
     companion object {
 
         fun isThisSourceSupported(source: String): Boolean {
-            val mimeType = getMimeType(source)
+            val mimeType = getMimeTypeV2(source)
             return PublicValues.SUPPORTED_MEDIAS.contains(mimeType)
         }
 
+        @Deprecated("This method is depricated use getMimeTypeV2()")
         fun getMimeType(source: String): String {
             return source.substringAfterLast(".", PublicValues.KEY_UNKNOWN).toLowerCase()
+        }
+
+        fun getMimeTypeV2(source: String): String {
+            var mimeType: String? = null
+            val extension = MimeTypeMap.getFileExtensionFromUrl(source)
+            if (extension != null) {
+                mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)?.lowercase()
+            }
+            return mimeType ?: PublicValues.KEY_UNKNOWN
         }
 
         fun getScreenWidth(): Int {

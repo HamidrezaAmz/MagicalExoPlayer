@@ -11,8 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.exoplayer2.*
-import com.google.android.exoplayer2.source.TrackGroupArray
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.google.android.exoplayer2.util.MimeTypes
 import com.potyvideo.library.globalEnums.*
@@ -21,7 +19,6 @@ import com.potyvideo.library.utils.DoubleClick
 import com.potyvideo.library.utils.DoubleClickListener
 import com.potyvideo.library.utils.PublicFunctions
 import com.potyvideo.library.utils.PublicValues
-
 
 class AndExoPlayerView(
     context: Context,
@@ -143,12 +140,6 @@ class AndExoPlayerView(
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
     }
 
-    override fun onTracksChanged(
-        trackGroups: TrackGroupArray,
-        trackSelections: TrackSelectionArray
-    ) {
-    }
-
     override fun onPlayerError(error: PlaybackException) {
         showRetryView(error.message)
         andExoPlayerListener?.let {
@@ -203,7 +194,7 @@ class AndExoPlayerView(
 
     private fun buildMediaItem(source: String, extraHeaders: HashMap<String, String>): MediaItem {
 
-        return when (PublicFunctions.getMimeType(source)) {
+        return when (PublicFunctions.getMimeTypeV2(source)) {
 
             PublicValues.KEY_MP4 -> buildMediaItemMP4(source, extraHeaders)
             PublicValues.KEY_M3U8 -> buildMediaHLS(source, extraHeaders)
