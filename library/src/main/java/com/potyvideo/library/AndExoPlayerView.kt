@@ -1,9 +1,9 @@
 package com.potyvideo.library
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.content.res.TypedArray
 import android.util.AttributeSet
@@ -22,12 +22,10 @@ import com.potyvideo.library.utils.DoubleClickListener
 import com.potyvideo.library.utils.PublicFunctions
 import com.potyvideo.library.utils.PublicValues
 
-
 class AndExoPlayerView(
     context: Context,
     attributeSet: AttributeSet
 ) : AndExoPlayerRoot(context, attributeSet), /*Player.EventListener ,*/ Player.Listener {
-
     private lateinit var currSource: String
 
     private var player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
@@ -36,7 +34,7 @@ class AndExoPlayerView(
     private var playbackPosition: Long = 0
     private var currentWindow: Int = 0
     private var currVolume: Float = 0f
-
+    private var mFullScreenDialog: Dialog? = null
     override var customClickListener: DoubleClick
         get() = DoubleClick(object : DoubleClickListener {
             override fun onSingleClickEvent(view: View) {
@@ -220,7 +218,8 @@ class AndExoPlayerView(
         return MediaItem.Builder()
             .setUri(source)
             .setMimeType(MimeTypes.APPLICATION_MP4)
-            .setLicenseRequestHeaders(extraHeaders)
+            .setDrmLicenseRequestHeaders(extraHeaders)
+            //   .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
@@ -228,22 +227,24 @@ class AndExoPlayerView(
         return MediaItem.Builder()
             .setUri(source)
             .setMimeType(MimeTypes.APPLICATION_M3U8)
-            .setLicenseRequestHeaders(extraHeaders)
+            .setDrmLicenseRequestHeaders(extraHeaders)
+            //     .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
     private fun buildMediaDash(source: String, extraHeaders: HashMap<String, String>): MediaItem {
         return MediaItem.Builder()
             .setUri(source)
-            .setMimeType(MimeTypes.APPLICATION_MPD)
-            .setLicenseRequestHeaders(extraHeaders)
+            .setMimeType(MimeTypes.APPLICATION_MPD).setDrmLicenseRequestHeaders(extraHeaders)
+            //  .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
     private fun buildMediaGlobal(source: String, extraHeaders: HashMap<String, String>): MediaItem {
         return MediaItem.Builder()
             .setUri(source)
-            .setLicenseRequestHeaders(extraHeaders)
+            .setDrmLicenseRequestHeaders(extraHeaders)
+            //    .setLicenseRequestHeaders(extraHeaders)
             .build()
     }
 
@@ -394,19 +395,18 @@ class AndExoPlayerView(
     }
 
     fun setScreenMode(screenMode: EnumScreenMode = EnumScreenMode.MINIMISE) {
-
         when (screenMode) {
-            EnumScreenMode.FULLSCREEN -> {
-                getActivity()?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-            }
             EnumScreenMode.MINIMISE -> {
-                getActivity()?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                closeFullscreenDialog()
+            }
+            EnumScreenMode.FULLSCREEN -> {
+                initFullscreenDialog()
+                openFullscreenDialog()
             }
             else -> {
-                getActivity()?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                closeFullscreenDialog()
             }
         }
-
         currScreenMode = screenMode
         setShowScreenModeButton(currScreenMode)
     }
@@ -433,20 +433,42 @@ class AndExoPlayerView(
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
-        // Checking the orientation of the screen
-        // Checking the orientation of the screen
         if (newConfig!!.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // First Hide other objects (list-view or recyclerview), better hide them using Gone.
             hideSystemUI()
-            val params = playerView.layoutParams as FrameLayout.LayoutParams
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT
-            playerView.layoutParams = params
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // un hide your objects here.
             showSystemUI()
             setAspectRatio(currAspectRatio)
         }
     }
 
+    private fun initFullscreenDialog() {
+        mFullScreenDialog =
+            object : Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
+                override fun onBackPressed() {
+                    closeFullscreenDialog()
+                    setShowScreenModeButton(EnumScreenMode.MINIMISE)
+                    super.onBackPressed()
+                }
+            }
+    }
+
+    private fun openFullscreenDialog() {
+        (playerView.parent as ViewGroup).removeView(playerView)
+        mFullScreenDialog?.addContentView(
+            playerView,
+            LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        )
+        setShowScreenModeButton(currScreenMode)
+        mFullScreenDialog?.show()
+    }
+
+    private fun closeFullscreenDialog() {
+        mFullScreenDialog?.let { dialog ->
+            dialog.dismiss()
+            mFullScreenDialog = null
+            (playerView.parent as ViewGroup).removeView(playerView)
+            setShowScreenModeButton(currScreenMode)
+            (this.parent as ViewGroup).addView(playerView)
+        }
+    }
 }
