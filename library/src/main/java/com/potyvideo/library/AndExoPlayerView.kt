@@ -25,12 +25,13 @@ import com.potyvideo.library.utils.PublicValues
 
 class AndExoPlayerView(
     context: Context,
-    attributeSet: AttributeSet
+    attributeSet: AttributeSet,
+    player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
 ) : AndExoPlayerRoot(context, attributeSet), /*Player.EventListener ,*/ Player.Listener {
 
     private lateinit var currSource: String
 
-    private var player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
+    //private var player: SimpleExoPlayer = SimpleExoPlayer.Builder(context).build()
     private var andExoPlayerListener: AndExoPlayerListener? = null
     private var currPlayWhenReady: Boolean = true
     private var playbackPosition: Long = 0
